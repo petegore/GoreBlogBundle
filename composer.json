@@ -1,0 +1,32 @@
+{
+    "name": "petegore/blog-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony GoreBlogBundle",
+    "keywords": ["blog"],
+    "homepage": "https://github.com/petegore/GoreBlogBundle",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+        "name": "Pierre Gori",
+        "email": "pierre@petegore.fr",
+        "homepage": "http://www.petegore.fr",
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.5.*",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "stfalcon/tinymce-bundle": "dev-master",
+        "stof/doctrine-extensions-bundle": "~1.1@dev"
+    },
+    "autoload": {
+        "psr-0": { "GoreBlogBundle": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.3-dev"
+        }
+    }
+}
