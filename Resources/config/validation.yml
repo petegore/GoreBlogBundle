@@ -1,0 +1,21 @@
+Gore\BlogBundle\Entity\Article:
+    properties:
+        title:
+            - NotBlank:
+                message : "The title can't be empty"
+            - Length:
+                min: 3
+                max: 150
+                minMessage: "The title can't be shorter than {{ limit }} characters"
+                maxMessage: "The title can't be longer that {{ limit }} characters"
+        content:
+            - NotBlank:
+                message : "You forgot to write the article ;-)"
+
+Gore\BlogBundle\Entity\Picture:
+    properties:
+        file:
+            - File:
+                maxSize: 1024k
+                mimeTypes: [image/jpeg, image/png, image/gif]
+                mimeTypesMessage: "The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}"

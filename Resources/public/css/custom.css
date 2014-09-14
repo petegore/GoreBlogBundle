@@ -1,0 +1,22 @@
+/* 
+    Document   : custom
+    Created on : 13 sept. 2014, 11:30:56
+    Author     : Pierre Gori
+    Description:
+        Contains style that should be changed together
+*/
+
+.navbar-inverse,
+.thumbnail-article > .color {
+    background-color: #3a7bd5;
+    color: #EFEFEF !important;
+}
+
+.article .title,
+.page-part > .title {
+    color: #3a7bd5;
+}
+
+.thumbnail-article:hover {
+    border-color: #3a7bd5;
+}

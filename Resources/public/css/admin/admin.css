@@ -1,0 +1,76 @@
+/* 
+    Document   : admin
+    Created on : 13 oct. 2013, 16:13:53
+    Author     : Pete Gore
+    Description:
+        Style for admin only
+*/
+
+
+/*
+ * == ADMIN GLOBAL
+ */
+body {
+    background-color: #F6F6F6;
+}
+#blog-page,
+.sidebar-nav {
+    background-color: #FFFFFF;
+    border: 1px solid #d3d3d3;
+}
+
+
+
+
+/*
+ * == ADMIN ARTICLE FORM
+ */
+#gore_blogbundle_article_date_date,
+#gore_blogbundle_article_date_time {
+    display: inline;
+}
+
+#gore_blogbundle_article_date_date select,
+#gore_blogbundle_article_date_time select {
+    margin: 0 2px;
+}
+
+#gore_blogbundle_article_date_time {
+    margin-left: 20px;
+}
+
+.article-form textarea {
+    min-width: 400px;
+}
+
+.edited-article-thumbnail {
+    float: right;
+    width: 200px;
+    height: 100px;
+}
+
+.edited-article-thumbnail img {
+    max-height: 100%;
+    max-width: 100%;
+    border: 1px solid grey;
+}
+
+
+
+
+/*
+ * == ADMIN ARTICLE LIST
+ */
+#articles-table tr td a {
+    color: #333333;
+    opacity: 0.7;
+    margin: 0 2px;
+}
+
+#articles-table tr td a:hover {
+    cursor: pointer;
+    opacity: 1;
+    text-decoration: none;
+}
+
+

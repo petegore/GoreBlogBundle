@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Gore Blog - Administration{% endblock %}</title>
+        {% block common_stylesheets %}
+            {# This bootstrap-back is used only if the booostrap CDN is down #}
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/bootstrap-back.css') }}">
+            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/blog.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/admin/admin.css') }}">
+            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/lib/syntax-highlighter/styles/shCore.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/lib/syntax-highlighter/styles/shThemeDefault.css') }}">
+        {% endblock %}
+        
+        {% block common_javascripts %}
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/lib/jquery/jquery.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/js/blog.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/lib/syntax-highlighter/scripts/shCore.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/lib/syntax-highlighter/scripts/shBrushJScript.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/lib/syntax-highlighter/scripts/shBrushPhp.js') }}"></script>
+        {% endblock %}
+            
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    
+    <body>
+        {% block header %}
+            {% include 'GoreBlogBundle:Common:header.html.twig' with {'admin' : true} %}
+        {% endblock %}
+            
+        {% block body %}
+            <div class="container">
+                <div class="row row-offcanvas row-offcanvas-right">
+                    <div role="navigation" id="sidebar" class="col-xs-6 col-sm-3 sidebar-offcanvas">
+                        {% block left_column %}
+                            <div class="well sidebar-nav">
+                                <ul class="nav">
+                                    <li>Actions</li>
+                                    <li class="active"><a href="{{ path('gore_blog_admin_add_article') }}">New article</a></li>
+                                    <li><a href="{{ path('gore_blog_admin_manage_articles') }}">Manage articles</a></li>
+                                    <li style="display:none;"><a href="#">Manage pictures</a></li>
+                                    <li><a href="{{ path('gore_blog_admin_manage_keywords') }}">Manage keywords and categories</a></li>
+                                </ul>
+                            </div><!--/.well -->
+                        {% endblock %}
+                    </div><!--/span-->
+
+                    <div class="col-xs-12 col-sm-9" id="blog-page">
+                        {% block flashbags %}
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+                                <div class="alert alert-success">
+                                    {{ flashMessage }}
+                                </div>
+                            {% endfor %}
+                            {% for flashMessage in app.session.flashbag.get('error') %}
+                                <div class="alert alert-danger">
+                                    {{ flashMessage }}
+                                </div>
+                            {% endfor %}
+                        {% endblock %}
+                        {% block page_content %}{% endblock %}
+                    </div>
+                </div>
+            </div><!--/row-->
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

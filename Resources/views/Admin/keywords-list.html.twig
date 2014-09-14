@@ -1,0 +1,33 @@
+{# Keywords list table template #}
+
+<h3>Current categories</h3>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    {% if categories|length > 0 %}
+        {% for category in categories %}
+            {% include 'GoreBlogBundle:Admin:keyword-table-line.html.twig' with {'index' : loop.index, 'keyword' : category} %}
+        {% endfor %}
+    {% else %}
+        <td colspan="3" class="warning">No categories found</td>
+    {% endif %}
+</table>
+
+<h3>Current keywords</h3>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    {% if keywords|length > 0 %}
+        {% for keyword in keywords %}
+            {% include 'GoreBlogBundle:Admin:keyword-table-line.html.twig' with {'index' : loop.index, 'keyword' : keyword} %}
+        {% endfor %}
+    {% else %}
+        <td colspan="3" class="warning">No keywords found</td>
+    {% endif %}
+</table>

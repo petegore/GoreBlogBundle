@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- French translations -->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>About me</source>
+                <target>À propos de moi</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>Last articles</source>
+                <target>Les derniers articles</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>Older articles</source>
+                <target>Les articles plus anciens</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>Load more !</source>
+                <target>Articles suivants</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>Popular tags</source>
+                <target>Mots-clés</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

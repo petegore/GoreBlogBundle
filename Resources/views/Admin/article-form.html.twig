@@ -1,0 +1,130 @@
+{# Article form for adding and updating articles #}
+
+<form role="form" class="form article-form" method="post" {{ form_enctype(form) }} action="{{ path('gore_blog_admin_add_article') }}">
+    <div class="form-group">
+        <label for="exampleInputEmail1">
+            Current author : 
+            <span class="text-info">
+                {{ app.user.username }}
+            </span>
+        </label>
+    </div> 
+    <div class="form-group">
+        <label for="exampleInputEmail1">Date and time</label>
+        <p class="text-warning">
+            Note : if date and time are beyond current date, the article won't be visible for visitors.
+        </p>
+        {{ form_errors(form.date) }}
+        {{ form_widget(form.date) }}
+    </div> 
+    <div class="form-group">
+        <label>Title</label>
+        {{ form_errors(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Category</label>
+                {{ form_errors(form.category) }}
+                {{ form_widget(form.category) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_errors(form.thumbnail) }}
+                {{ form_widget(form.thumbnail) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Content</label>
+        {{ form_errors(form.content) }}
+        {{ form_widget(form.content) }}
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">Article keywords</div>
+        <div class="panel-body">
+            <div class="form-group">
+                {{ form_errors(form.keywords) }}
+                {{ form_widget(form.keywords) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>State</label>
+        {{ form_errors(form.published) }}
+        {{ form_widget(form.published) }}
+    </div>
+        
+    {{ form_rest(form) }}
+        
+    <input type="submit" value="Send and post" class="btn btn-success" />
+</form>
+
+{# Initializing our text editor and code syntax highlighter #}
+{{ tinymce_init({height: 500}) }}
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+
+<script>
+    $(function(){
+        // Let generate the JS code to add/remove keywords
+        var $container = $('div#gore_blogbundle_article_keywords');
+
+        // Link to add a keyword
+        var $lienAjout = $('<div class="text-center"><a href="#" id="add_keyword" class="btn btn-info">Add new keyword</a></div>');
+        $container.append($lienAjout);
+
+        // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+        $lienAjout.click(function(e) {
+            ajouterCategorie($container);
+            e.preventDefault(); // avoid # in URL
+            return false;
+        });
+
+        // We use an index to identify keywords
+        var index = $container.find(':input').length;
+
+        // Default : if we ask for a new article we automatically add a keyword field
+        if (index == 0) {
+            //ajouterCategorie($container);
+        } else {
+            // Adding a delete link
+            $container.children('div').each(function() {
+                ajouterLienSuppression($(this));
+            });
+        }
+
+        // Function which add a keyword form
+        function ajouterCategorie($container) {
+            // Let's treat the data-prototype attribute
+            var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Keyword #' + (index+1))
+                                                                .replace(/__name__/g, index));
+            ajouterLienSuppression($prototype);
+            $container.prepend($prototype);
+            
+            // Using bootstrap form classes
+            $prototype.addClass('form-inline');
+            
+            
+            index++;
+        }
+
+        // Function to add a delete link for each keyword
+        function ajouterLienSuppression($prototype) {
+          $lienSuppression = $('<a href="#" class="btn btn-danger">Delete</a>');
+          $prototype.append($lienSuppression);
+
+          // Creating a listener for the delete button
+          $lienSuppression.click(function(e) {
+                $prototype.remove();
+                e.preventDefault(); // avoid # in URL
+                return false;
+          });
+        }
+    });
+</script>

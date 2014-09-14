@@ -1,0 +1,49 @@
+################## ADMINISTRATION ##################
+
+gore_blog_admin_homepage:
+    pattern:  /
+    defaults: { _controller: GoreBlogBundle:Admin:index }
+ 
+ 
+# ARTICLES MANAGEMENT ROUTES
+gore_blog_admin_add_article:
+    pattern:  /add-article
+    defaults: { _controller: GoreBlogBundle:Admin:addArticle }
+
+gore_blog_admin_manage_articles:
+    pattern:  /manage-articles
+    defaults: { _controller: GoreBlogBundle:Admin:manageArticles }
+   
+gore_blog_admin_delete_article:
+    pattern:  /manage-articles/delete/{id}
+    defaults: { _controller: GoreBlogBundle:Admin:deleteArticle }
+    requirements:
+        id: \d+
+        
+gore_blog_admin_edit_article:
+    pattern:  /manage-articles/edit/{id}
+    defaults: { _controller: GoreBlogBundle:Admin:editArticle }
+    requirements:
+        id: \d+
+        
+gore_blog_admin_toggle_article:
+    pattern:  /manage-articles/toggle/{id}
+    defaults: { _controller: GoreBlogBundle:Admin:toggleArticle }
+    requirements:
+        id: \d+
+    
+    
+# KEYWORDS MANAGEMENT ROUTES
+gore_blog_admin_manage_keywords:
+    pattern:  /manage-keywords
+    defaults: { _controller: GoreBlogBundle:Admin:manageKeywords }
+
+gore_blog_admin_delete_keyword:
+    pattern:  /delete-keyword/{id}
+    defaults: { _controller: GoreBlogBundle:Admin:deleteKeyword }
+    requirements:
+        -id: \d*
+        
+
+# PICTURES MANAGEMENT ROUTES
+# @TODO

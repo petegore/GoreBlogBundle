@@ -1,0 +1,51 @@
+{# Managing articles template #}
+
+{% extends "GoreBlogBundle:Admin:index.html.twig" %}
+
+{% block page_content %}
+    <h2>Manage articles</h2>
+    
+    <small class="text-muted">
+        In the following table, articles in red are not visible for your visitors. There are two 
+        possible reasons : the article as been saved as draft, or its date is not passed yet.
+    </small>
+    
+    <table class="table" id="articles-table">
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>State</th>
+            <th>Actions</th>
+        </tr>
+        {% if articles|length > 0 %}
+            {% for article in articles %}
+                {% set article_class = 'normal' %}
+                {% if "now"|date('Ymd') < article.date|date('Ymd') %}
+                    {% set article_class = 'danger' %}
+                {% elseif article.published != true %}
+                    {% set article_class = 'warning' %}
+                {% endif %}
+                <tr class="{{ article_class }}">
+                    <td>{{ loop.index }}</td>
+                    <td>{{ article.date|date('Y-m-d H:i') }}</td>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.category.name }}</td>
+                    <td>{% if article.published == true%}Online{% else %}Offline{% endif %}</td>
+                    <td>
+                        {% if article.published == true%}
+                            <a href="{{ path('gore_blog_admin_toggle_article', {'id': article.id}) }}"><i class="icon-eye-open" title="ON - Put off"></i></a>
+                        {% else %}
+                            <a href="{{ path('gore_blog_admin_toggle_article', {'id': article.id}) }}"><i class="icon-eye-close" title="OFF - Put on"></i></a>
+                        {% endif %}
+                        <a href="{{ path('gore_blog_admin_edit_article', {'id': article.id}) }}"><i class="icon-edit" title="Edit article"></i></a>
+                        <a href="{{ path('gore_blog_admin_delete_article', {'id': article.id}) }}" onClick="return confirm('This article will be deleted. Continue ?');"><i class="icon-trash" title="Delete article"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <td colspan="6" class="active text-muted">No articles found. <a class="text-primary" href="{{ path('gore_blog_admin_add_article') }}">Let's write the first one !</a></td>
+        {% endif %}
+    </table>
+{% endblock %}

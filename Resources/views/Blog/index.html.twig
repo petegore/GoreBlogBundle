@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Gore Blog{% endblock %}</title>
+        {% block common_stylesheets %}
+            {# This bootstrap-back is used only if the booostrap CDN is down #}
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/bootstrap-back.css') }}">
+            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/blog.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/custom.css') }}">
+            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/lib/syntax-highlighter/styles/shCore.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/goreblog/lib/syntax-highlighter/styles/shThemeMidnight.css') }}">
+        {% endblock %}
+        
+        {% block common_javascripts %}
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/lib/jquery/jquery.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/js/blog.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/lib/syntax-highlighter/scripts/shCore.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/lib/syntax-highlighter/scripts/shBrushJScript.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/goreblog/lib/syntax-highlighter/scripts/shBrushPhp.js') }}"></script>
+        {% endblock %}
+            
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    
+    <body>
+        {% block header %}
+            {% include 'GoreBlogBundle:Common:header.html.twig' %}
+        {% endblock %}
+            
+        {% block body %}
+            <div class="container">
+                <div class="row row-offcanvas row-offcanvas-right">
+                    {% block sidebar %}
+                        {% include 'GoreBlogBundle:Blog:sidebar.html.twig' %}
+                    {% endblock %}
+
+                    <div class="col-md-9" id="blog-page">
+                        {% block page_content %}
+                            <div class="page-part">
+                                <div class="title">
+                                    {% trans %}Last articles{% endtrans %}
+                                </div>
+                                <div id="main-articles">
+                                    {% if mains is defined and mains is not null %}
+                                        {% for article in mains %}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    {% include 'GoreBlogBundle:Article:main.html.twig' with {'article': article} %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div> 
+                            </div>
+
+                            <div class="page-part">
+                                <div class="title">
+                                    {% trans %}Older articles{% endtrans %}
+                                </div>
+                                <div id="small-articles">
+                                    <div class="row articles-container">
+                                        {% include 'GoreBlogBundle:Article:thumbnails.html.twig' with {'articles': olders} %}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <div id="load-more" class="btn btn-default" data-page="2">{% trans %}Load more !{% endtrans %}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endblock %}
+                    </div><!--/span-->
+                </div>
+            </div><!--/row-->
+
+
+        {% endblock %}
+            
+        {% block javascripts %}
+            {# Used in the blog.js file #}
+            <script>
+                loadMoreUrl = '{{ path('gore_blog_load_more') }}';
+                SyntaxHighlighter.all()
+            </script>
+        {% endblock %}
+    </body>
+</html>

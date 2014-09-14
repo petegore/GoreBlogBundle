@@ -1,0 +1,221 @@
+/* 
+    Document   : blog
+    Created on : 6 oct. 2013, 19:11:04
+    Author     : Pete Gore
+    Description:
+        All the CSS styles of the Gore Blog
+*/
+
+/* LET'S DISABLE AUTOMATIC STYLES OF BODY */
+root { 
+    display: block;
+}
+
+body {
+    background-color: #F9F9F9;
+    background: -webkit-linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* Chrome 10+, Saf5.1+ */
+    background:    -moz-linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* FF3.6+ */
+    background:     -ms-linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* IE10 */
+    background:      -o-linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* Opera 11.10+ */
+    background:         linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* W3C */
+}
+
+#blog-page {
+    margin-bottom: 30px;
+    padding: 0;
+}
+
+.page-part {
+    background-color: #ffffff;
+    border: 1px solid #dedede;
+    margin-bottom: 10px;
+}
+
+.page-part > .title {
+    background-color: #f9f9f9;
+    font-size: 25px;
+    padding-left: 10px;
+    font-variant: small-caps;
+}
+
+
+
+
+/** ERASING SOME BOOTSTRAP STYLES **/
+.navbar-inverse {
+    border: none;
+}
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+    color: #fefefe;
+}
+
+.row {
+    margin: 0;
+}
+
+/** HEADER STYLES - BEGIN **/
+input#search-input {
+    width: 300px;
+}
+#navbar {
+    border-radius: 0;
+}
+/** HEADER STYLES - END **/
+
+
+
+/** GENERAL BODY STYLES - BEGIN **/
+div.page-title {
+    font-size: 2em;
+    font-family: Georgia;
+    font-weight: bold;
+}
+/** GENERAL BODY STYLES - END **/
+
+
+
+/** MAIN ARTICLES STYLES - BEGIN **/
+
+#main-articles {
+    padding: 10px;
+}
+
+#main-articles div:not(.overview) {
+    padding: 0;
+}
+
+.main-article {
+    background-color: #333333;
+    border: 1px solid #333333;
+    color: #EFEFEF;
+    height: 200px;
+}
+
+.main-article:hover {
+    border-color: #333333;
+    cursor: pointer;
+}
+
+.main-article .thumbnail {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 120% auto;
+    border: medium none;
+    border-radius: 0;
+    height: 198px;
+    transition: none 0s ease 0s ;
+}
+
+.main-article .overview {
+    padding: 5px;
+    height: 198px;
+    overflow: hidden;
+}
+
+.main-article .overview .title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.main-article .show-more {
+    color: #f9d423;
+    position: absolute;
+    right: 8px;
+    top: 12px;
+    display: none;
+}
+.main-article:hover .show-more {
+    display: inherit;
+}
+
+/** MAIN ARTICLES STYLES - END **/
+
+
+
+/** SMALL ARTICLES STYLES - BEGIN **/
+#small-articles {
+    padding: 10px;
+}
+
+.thumbnail-article {
+    border: 1px solid #999999;
+    display: inline-block;
+    float: left;
+    height: 150px;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    overflow: hidden;
+    position: relative;
+    width: 32.666%;
+}
+.thumbnail-article:nth-child(3n){
+    margin-right: 0;
+}
+
+.thumbnail-article .title {
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 50px;
+}
+
+.thumbnail-article:hover {
+    cursor: pointer;
+}
+
+.thumbnail-article > div {
+    position: absolute;
+    width: 100%;
+    height: 150px;
+}
+
+.thumbnail-article > .background {
+    z-index: 4;
+    background-position: center center;
+    background-size: 100% auto;
+}
+
+.thumbnail-article > .content {
+    z-index: 3;
+    color: #EFEFEF;
+}
+
+.thumbnail-article > .color {
+    z-index: 2;
+    opacity: 0.9;
+}
+
+.thumbnail-article > .background.behind {
+    z-index: 1;
+}
+
+#load-more {
+    margin-top: 20px;
+}
+
+/** SMALL ARTICLES STYLES - END **/
+
+
+
+/*
+ * == ARTICLE PAGE
+ */
+.article .title {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #efefef;
+    font-size: 25px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.article .content {
+    padding: 10px;
+    text-align: justify;
+}
+
+.article img {
+    border: 1px solid #999999;
+    max-width: 100%;
+    padding: 5px;
+}

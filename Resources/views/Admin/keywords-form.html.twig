@@ -1,0 +1,29 @@
+{# Form for adding and updating keywords and categories #}
+
+<div class="panel panel-default">
+    <div class="panel-heading">Add a new keyword or a new category</div>
+    <div class="panel-body">
+        <div class="container">
+            <form role="form" class="form-horizontal" method="post" {{ form_enctype(form) }}>
+
+                <div class="form-group">
+                    <label class="sr-only" for="gore_blogbundle_keyword_name">Keyword name</label>
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="gore_blogbundle_keyword_name">This is a category</label>
+                    {{ form_errors(form.category) }}
+                    {{ form_widget(form.category) }}
+                    {{ form_label(form.category, "This is a category") }}
+                </div>
+
+
+                {{ form_rest(form) }}
+                <div class="text-center">
+                    <input type="submit" value="Add keyword" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+# PUBLIC BLOG
+
+gore_blog_homepage:
+    pattern:  /
+    defaults: { _controller: GoreBlogBundle:Blog:index }
+
+gore_blog_article:
+    pattern:  /article-{slug}
+    defaults: { _controller: GoreBlogBundle:Blog:article }
+    
+gore_blog_load_more:
+    pattern:  /load-more
+    defaults: { _controller: GoreBlogBundle:Blog:loadMore }
+    requirements:
+        method: POST
+    
+
+# ADMINISTRATION
+gore_blog_admin:
+    resource: "@GoreBlogBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin
+
+
+# STATIC PAGES
+gore_blog_about_me:
+    pattern:  /about-me
+    defaults: { _controller: GoreBlogBundle:Blog:aboutMe }

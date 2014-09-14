@@ -1,0 +1,16 @@
+ {# Template of one main article #}
+
+<div class="main-article" onClick="window.location='{{ path('gore_blog_article', {'slug': article.slug}) }}';">
+    <div class="col-md-5">
+        <div class="thumbnail" style="background-image:url('{{ asset(commonData.picturesFolder ~ article.thumbnail.url) }}');"></div>
+    </div>
+    <div class="col-md-7 overview">
+        <div class="title">{{ article.title }}</div>
+        <div class="content">
+            {{ article.content|raw }}
+        </div>
+        <div class="show-more">
+            read more &raquo;
+        </div>
+    </div>
+</div>

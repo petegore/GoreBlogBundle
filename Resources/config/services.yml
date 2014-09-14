@@ -1,0 +1,23 @@
+parameters:
+#    gore_blog.example.class: Gore\BlogBundle\Example
+
+services:
+    # Managers
+    gore_blog.articles_manager:
+        class: Gore\BlogBundle\Services\ArticlesManager
+        arguments: ["@doctrine", "@service_container"]
+        tags:
+            - { name: twig.extension }
+            
+    # Listeners Doctrine
+    gore_blog.prepersist_listener:
+        class: Gore\BlogBundle\Listener\PrePersistListener
+        arguments: ["@service_container"]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            
+    gore_blog.postload_listener:
+        class: Gore\BlogBundle\Listener\PostLoadListener
+        arguments: ["@service_container"]
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }

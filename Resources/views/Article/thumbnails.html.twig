@@ -1,0 +1,16 @@
+ {# Template of one small article #}
+
+{% for article in articles %}
+    <div class="thumbnail-article" onClick="window.location='{{ path('gore_blog_article', {'slug': article.slug}) }}';">
+        <div class="background" style="background-image:url('{{ asset(commonData.picturesFolder ~ article.thumbnail.url) }}');">
+            &nbsp;
+        </div>
+        <div class="color">
+            &nbsp;
+        </div>
+        <div class="content">
+            <div class="title text-center">{{ article.title }}</div>
+            <div class="date text-center">{{ article.date|readabledate }}</div>
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,25 @@
+{# template of a simple article page #}
+
+{% extends "GoreBlogBundle:Blog:index.html.twig" %}
+
+{% block page_content %}
+    <div class="page-part">
+        {% if article is defined and article is not null %}
+            <div class="article">
+                <div class="title">{{ article.title }}</div>
+                <div class="content">
+                    {{ article.content|raw }}
+
+                    {# Putting the image at the end because the most important thing is the article content #}
+                    <div class="article-image">
+                        <img src="{{ asset(commonData.picturesFolder ~ article.thumbnail.url)}}"/>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>
+                Sorry, we couldn't find the article you're looking for.
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

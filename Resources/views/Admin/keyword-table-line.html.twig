@@ -1,0 +1,10 @@
+{# Line for one keyword in the keyword manager page #}
+<tr>
+    <td>{{ index }}</td>
+    <td>{{ keyword.name }}</td>
+    <td>
+        <a href="{{ path('gore_blog_admin_delete_keyword', {'id' : keyword.id}) }}" onClick="return confirm('The keyword will be deleted. Continue ?');">
+            <i class="icon-trash" title="Delete"></i>
+        </a>
+    </td>
+</tr>

@@ -1,0 +1,12 @@
+{# Managing keywords and categories #}
+{% extends "GoreBlogBundle:Admin:index.html.twig" %}
+
+{% block page_content %}
+    <h2>Manage keywords and categories</h2>
+    
+    {# The title is in the table #}
+    {% include 'GoreBlogBundle:Admin:keywords-form.html.twig' %}
+    
+    {# Including the list of keywords #}
+    {% include 'GoreBlogBundle:Admin:keywords-list.html.twig' %}
+{% endblock %}
