@@ -10,7 +10,7 @@
         {
         "name": "Pierre Gori",
         "email": "pierre@petegore.fr",
-        "homepage": "http://www.petegore.fr",
+        "homepage": "http://www.petegore.fr"
         }
     ],
     "minimum-stability": "dev",
