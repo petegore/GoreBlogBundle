@@ -11,11 +11,18 @@ $(function(){
     // all listeners for click, change, etc... are declared here
     
     // we have to use on() in order to apply the listeners to future childs loaded dynamicaly with AJAX
-    $(".articles-container").on("mouseenter", ".thumbnail-article", function(){
+    $(".articles-container").on("mouseenter", ".thumbnail-article, .main-article", function(){
         $("div:first", this).addClass("behind");
     })
     .on("mouseleave", ".thumbnail-article", function(){
         $("div:first", this).removeClass("behind");
+    });
+    
+    $(".main-articles-container").on("mouseenter", ".main-article", function(){
+        $(".content div:first", this).addClass("behind");
+    })
+    .on("mouseleave", ".main-article", function(){
+        $(".content div:first", this).removeClass("behind");
     });
     
     

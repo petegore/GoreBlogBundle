@@ -7,6 +7,10 @@
 */
 
 /* LET'S DISABLE AUTOMATIC STYLES OF BODY */
+html {
+    min-height: 100%;
+}
+
 root { 
     display: block;
 }
@@ -25,6 +29,14 @@ body {
     padding: 0;
 }
 
+.homepage-title {
+    margin-bottom: 15px;
+    color: #333333;
+    font-size: 25px;
+    font-weight: bold;
+    border-bottom: 3px dashed #333333;
+}
+
 .page-part {
     background-color: #ffffff;
     border: 1px solid #dedede;
@@ -39,6 +51,13 @@ body {
 }
 
 
+
+/*
+ * == SIDEBAR
+ */
+#sidebar {
+    padding: 0 15px 0 0;
+}
 
 
 /** ERASING SOME BOOTSTRAP STYLES **/
@@ -86,37 +105,91 @@ div.page-title {
 }
 
 .main-article {
-    background-color: #333333;
+    display: inline-block;
     border: 1px solid #333333;
     color: #EFEFEF;
     height: 200px;
+    width: 48.7%; /* @TODO check why */
+    margin-right: 2%;
 }
-
+.main-article:nth-child(2n+1){
+    margin-right: 0;
+}
 .main-article:hover {
     border-color: #333333;
     cursor: pointer;
 }
 
-.main-article .thumbnail {
+.main-article .title {
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    height: 50px;
+    padding-left: 10px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.main-article .title .triangle-down {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #333333;
+    bottom: -15px;
+    height: 0;
+    left: 30px;
+    position: absolute;
+    width: 0;
+    z-index: 10;
+}
+
+.main-article .content {
+    position: relative;
+    height: 150px;
+    overflow: hidden;
+}
+
+.main-article .content-part {
+    position: absolute;
+    width: 100%;
+    height: 148px;
+}
+.main-article .content-part:nth-child(1){
+    z-index: 4;
+}
+.main-article .content-part:nth-child(1).behind {
+    z-index: 1;
+}
+.main-article .content-part:nth-child(2){
+    z-index: 2;
+}
+.main-article .content-part:nth-child(3){
+    z-index: 3;
+}
+.main-article .color {
+    opacity: 0.9;
+}
+
+.main-article .thumb {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 120% auto;
     border: medium none;
     border-radius: 0;
-    height: 198px;
+    height: 148px;
     transition: none 0s ease 0s ;
+    width: 100%;
 }
 
-.main-article .overview {
-    padding: 5px;
-    height: 198px;
-    overflow: hidden;
-}
-
-.main-article .overview .title {
+.main-article .infos {
+    display: table;
     font-size: 25px;
     font-weight: bold;
-    color: #FFFFFF;
+}
+
+.main-article .infos div {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .main-article .show-more {
@@ -136,7 +209,6 @@ div.page-title {
 
 /** SMALL ARTICLES STYLES - BEGIN **/
 #small-articles {
-    padding: 10px;
 }
 
 .thumbnail-article {

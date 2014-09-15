@@ -39,27 +39,17 @@
 
                     <div class="col-md-9" id="blog-page">
                         {% block page_content %}
-                            <div class="page-part">
-                                <div class="title">
-                                    {% trans %}Last articles{% endtrans %}
-                                </div>
-                                <div id="main-articles">
-                                    {% if mains is defined and mains is not null %}
-                                        {% for article in mains %}
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    {% include 'GoreBlogBundle:Article:main.html.twig' with {'article': article} %}
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                </div> 
+                            <div class="homepage-part main-articles-container">
+                                <div class="homepage-title">{% trans %}Last articles{% endtrans %}</div>
+                                {% if mains is defined and mains is not null %}
+                                    {% for article in mains %}
+                                        {% include 'GoreBlogBundle:Article:main.html.twig' with {'article': article} %}
+                                    {% endfor %}
+                                {% endif %}
                             </div>
-
-                            <div class="page-part">
-                                <div class="title">
-                                    {% trans %}Older articles{% endtrans %}
-                                </div>
+                            
+                            <div class="homepage-part main-articles-container">
+                                <div class="homepage-title">&nbsp;</div>
                                 <div id="small-articles">
                                     <div class="row articles-container">
                                         {% include 'GoreBlogBundle:Article:thumbnails.html.twig' with {'articles': olders} %}

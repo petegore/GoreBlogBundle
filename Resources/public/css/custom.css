@@ -7,7 +7,8 @@
 */
 
 .navbar-inverse,
-.thumbnail-article > .color {
+.thumbnail-article > .color,
+.main-article .color {
     background-color: #3a7bd5;
     color: #EFEFEF !important;
 }

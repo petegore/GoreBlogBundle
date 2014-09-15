@@ -1,16 +1,23 @@
  {# Template of one main article #}
 
-<div class="main-article" onClick="window.location='{{ path('gore_blog_article', {'slug': article.slug}) }}';">
-    <div class="col-md-5">
-        <div class="thumbnail" style="background-image:url('{{ asset(commonData.picturesFolder ~ article.thumbnail.url) }}');"></div>
-    </div>
-    <div class="col-md-7 overview">
-        <div class="title">{{ article.title }}</div>
+<div class="main-article" 
+     onClick="window.location='{{ path('gore_blog_article', {'slug': article.slug}) }}';"
+>
+        <div class="title">
+            {{ article.date|readabledate }}
+            <div class="triangle-down"></div>
+        </div>
         <div class="content">
-            {{ article.content|raw }}
+            <div class="content-part thumb"
+                style="background-image:url('{{ asset(commonData.picturesFolder ~ article.thumbnail.url) }}');"
+            >
+                &nbsp;
+            </div>
+            <div class="content-part color">
+                &nbsp;
+            </div>
+            <div class="content-part infos">
+                <div class="text-center">{{ article.title }}</div>
+            </div>
         </div>
-        <div class="show-more">
-            read more &raquo;
-        </div>
-    </div>
 </div>
