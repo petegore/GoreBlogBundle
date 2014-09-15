@@ -17,10 +17,40 @@ use Gore\BlogBundle\Entity\Picture;
 
 class AdminController extends Controller
 {
+    /**
+     * getCommonData
+     * Get data common to many pages on the blog. For example : 
+     *      > the blog title
+     *      > the pictures folder
+     *      > sidebar data
+     *      > etc...
+     */
+    private function getCommonData(){
+        // Parameters
+        $picturesFolder = $this->container
+                               ->getParameter('gore_blog.pictures_folder');
+        $blogTitle      = $this->container
+                               ->getParameter('gore_blog.blog_title');
+        
+        // tags cloud data
+        $tags = $this->get('gore_blog.articles_manager')->getTagsCloudData();
+        
+        $commonData = array(
+            'blogTitle'         => $blogTitle,
+            'picturesFolder'    => $picturesFolder,
+            'tagsCloudTags'     => $tags
+        );
+        
+        return $commonData;
+    }
+    
+    
     
     public function indexAction()
     {
-        return $this->redirect($this->generateUrl('gore_blog_admin_add_article'));
+        return $this->redirect(
+            $this->generateUrl('gore_blog_admin_add_article')
+        );
     }
     
     
@@ -29,7 +59,8 @@ class AdminController extends Controller
      * Display the article builder page
      */
     public function addArticleAction(){
-        // We get the cateogries to avoid the creation if there is no category defined
+        // We get the cateogries to avoid the creation if 
+        // there is no category defined
         $keywordsRepo = $this->getDoctrine()
                              ->getManager()
                              ->getRepository('GoreBlogBundle:Keyword');
@@ -37,7 +68,10 @@ class AdminController extends Controller
         $categories = $keywordsRepo->getAllKeywords(1);
         
         $article = new Article;
-        $form = $this->createForm(new ArticleType($this->get('security.context')), $article);
+        $form = $this->createForm(
+            new ArticleType($this->get('security.context')), 
+            $article
+        );
 
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
@@ -52,24 +86,32 @@ class AdminController extends Controller
                 }
                 
                 // Traitement de l'image
-                $picture = $this->createPictureFromFile($form['thumbnail']['file']->getData());
+                $picture = $this->createPictureFromFile(
+                    $form['thumbnail']['file']->getData()
+                );
                 $article->setThumbnail($picture);
                 
                 $em->persist($article);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('gore_blog_admin_manage_articles'));
+                return $this->redirect(
+                    $this->generateUrl('gore_blog_admin_manage_articles')
+                );
             } else {
-                $this->get('session')->getFlashbag()->add('error', 'Article not valid');
+                $this->get('session')->getFlashbag()->add(
+                    'error', 
+                    'Article not valid'
+                );
                 print_r($form->getErrors());
             }
         }
-
-        return $this->render('GoreBlogBundle:Admin:add-article.html.twig', array(
-                                                                                'blogTitle'     => $this->container->getParameter('gore_blog.blog_title'),
-                                                                                'categories'    => $categories,
-                                                                                'form'          => $form->createView(),
-                                                                            ));
+        
+        $view = 'GoreBlogBundle:Admin:add-article.html.twig';
+        return $this->render($view, array(
+            'commonData'    => $this->getCommonData(),
+            'categories'    => $categories,
+            'form'          => $form->createView(),
+        ));
     }
     
     
@@ -86,11 +128,13 @@ class AdminController extends Controller
         
         $articles = $this->get('gore_blog.articles_manager')->findAll();
         
-        return $this->render('GoreBlogBundle:Admin:articles-list.html.twig', array(
-            'blogTitle'     => $this->container->getParameter('gore_blog.blog_title'),
+        $view = 'GoreBlogBundle:Admin:articles-list.html.twig';
+        return $this->render($view, array(
+            'commonData'        => $this->getCommonData(),
             'articles'   => $articles
         ));
     }
+    
     
     
     /**
@@ -100,11 +144,22 @@ class AdminController extends Controller
      */
     public function deleteArticleAction(Article $article){
         if ($this->get('gore_blog.articles_manager')->delete($article)){
-            $this->get('session')->getFlashBag()->add('notice', 'Article "' . $article->getTitle() . '" has been correctly deleted.');
+            $message = 'Article "' . 
+                        $article->getTitle() . 
+                        '" has been correctly deleted.';
+            $this->get('session')->getFlashBag()->add(
+                'notice', 
+                $message
+            );
         } else {
-            $this->get('session')->getFlashBag()->add('error', 'Impossible to delete the article.');
+            $this->get('session')->getFlashBag()->add(
+                'error', 
+                'Impossible to delete the article.'
+            );
         }
-        return $this->redirect($this->generateUrl('gore_blog_admin_manage_articles'));
+        return $this->redirect(
+            $this->generateUrl('gore_blog_admin_manage_articles')
+        );
     }
     
     
@@ -116,9 +171,7 @@ class AdminController extends Controller
      * @return type
      */
     public function editArticleAction(Article $article){
-        $picturesFolder = $this->container->getParameter('gore_blog.pictures_folder');
-        
-        // We get the cateogries to avoid the creation if there is no category defined
+        // checking categories to avoid the creation if there is no one defined
         $keywordsRepo = $this->getDoctrine()
                              ->getManager()
                              ->getRepository('GoreBlogBundle:Keyword');
@@ -143,23 +196,33 @@ class AdminController extends Controller
                     $em->persist($article);
                     $em->flush();
                     
-                    $this->get('session')->getFlashBag()->add('notice', 'Your article has been successfully modified.');
-                    return $this->redirect($this->generateUrl('gore_blog_admin_manage_articles'));
+                    $this->get('session')->getFlashBag()->add(
+                        'notice', 
+                        'Your article has been successfully modified.'
+                    );
+                    return $this->redirect(
+                        $this->generateUrl('gore_blog_admin_manage_articles')
+                    );
                 }
             }
-
-            return $this->render('GoreBlogBundle:Admin:add-article.html.twig', array(
-                'blogTitle'     => $this->container->getParameter('gore_blog.blog_title'),
+            
+            $view = 'GoreBlogBundle:Admin:add-article.html.twig';
+            return $this->render($view, array(
+                'commonData'        => $this->getCommonData(),
                 'editionMode'       => true,
-                'picturesFolder'    => $picturesFolder,
                 'article'           => $article,
                 'categories'        => $categories,
                 'form'              => $form->createView(),
             ));
         } else {
             // If article couldn't be loaded
-            $this->get('session')->getFlashBag()->add('error', 'Sorry, impossible to load the article you want to edit.');
-            return $this->redirect($this->generateUrl('gore_blog_admin_manage_articles'));
+            $this->get('session')->getFlashBag()->add(
+                'error', 
+                'Sorry, impossible to load the article you want to edit.'
+            );
+            return $this->redirect(
+                $this->generateUrl('gore_blog_admin_manage_articles')
+            );
         }
     }
     
@@ -182,13 +245,29 @@ class AdminController extends Controller
             $em->flush();
 
             $status = ($newpub == true) ? "ONLINE" : "OFFLINE";
-            $this->get('session')->getFlashBag()->add('notice', 'The article "' . $article->getTitle() .'" has been successfully put ' . $status . '.');
-            return $this->redirect($this->generateUrl('gore_blog_admin_manage_articles'));
+            $message = 'The article "' . 
+                        $article->getTitle() . 
+                        '" has been successfully put ' . 
+                        $status . 
+                        '.';
+            
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                $message
+            );
+            return $this->redirect(
+                $this->generateUrl('gore_blog_admin_manage_articles')
+            );
         } else {
             // If article couldn't be loaded
-            $this->get('session')->getFlashBag()->add('error', 'Sorry, impossible to toggle the article.');
+            $this->get('session')->getFlashBag()->add(
+                'error', 
+                'Sorry, impossible to toggle the article.'
+            );
         }
-        return $this->redirect($this->generateUrl('gore_blog_admin_manage_articles'));
+        return $this->redirect(
+            $this->generateUrl('gore_blog_admin_manage_articles')
+        );
     }
     
     
@@ -211,10 +290,18 @@ class AdminController extends Controller
                 $em->persist($keyword);
                 $em->flush();
                 
-                $this->get('session')->getFlashBag()->add('notice', 'Keyword "' . $keyword->getName() . '" has been added.');
-                return $this->redirect($this->generateUrl('gore_blog_admin_manage_keywords'));
+                $this->get('session')->getFlashBag()->add(
+                    'notice', 
+                    'Keyword "' . $keyword->getName() . '" has been added.'
+                );
+                return $this->redirect(
+                    $this->generateUrl('gore_blog_admin_manage_keywords')
+                );
             } else {
-                 $this->get('session')->getFlashBag()->add('notice', 'Keyword form is not valid.');
+                $this->get('session')->getFlashBag()->add(
+                    'notice', 
+                    'Keyword form is not valid.'
+                );
             }
         }
         
@@ -227,7 +314,7 @@ class AdminController extends Controller
         $categories = $keywordsRepo->getAllKeywords(1);
         
         return $this->render('GoreBlogBundle:Admin:keywords.html.twig', array(
-            'blogTitle'     => $this->container->getParameter('gore_blog.blog_title'),
+            'commonData'        => $this->getCommonData(),
             'form'       => $form->createView(),
             'keywords'   => $keywords,
             'categories' => $categories
@@ -246,12 +333,20 @@ class AdminController extends Controller
             $em->remove($keyword);
             $em->flush();
             
-            $this->get('session')->getFlashBag()->add('notice', 'Keyword "' . $keyword->getName() . '" has been deleted.');
+            $this->get('session')->getFlashBag()->add(
+                'notice', 
+                'Keyword "' . $keyword->getName() . '" has been deleted.'
+            );
         } else {
-            $this->get('session')->getFlashBag()->add('error', 'No keyword to delete.');
+            $this->get('session')->getFlashBag()->add(
+                'error', 
+                'No keyword to delete.'
+            );
         }
         
-        return $this->redirect($this->generateUrl('gore_blog_admin_manage_keywords'));
+        return $this->redirect(
+            $this->generateUrl('gore_blog_admin_manage_keywords')
+        );
     }
     
     
@@ -270,16 +365,23 @@ class AdminController extends Controller
         // note : mime types are filtered into the validation.yml file
         $folder = $this->container->getParameter('gore_blog.pictures_folder');
         $dt = new \Datetime();
-        $fileName = $dt->getTimestamp() . "." . $file->getClientOriginalExtension();
+        $fileName = $dt->getTimestamp() . 
+                    "." . 
+                    $file->getClientOriginalExtension();
+        $folder = $this->container->getParameter('gore_blog.pictures_folder') . 
+                    '/' . 
+                    ($dt->format('Y')) .  
+                    '/' . 
+                    ($dt->format('n'));
         
         $file->move(
-            $this->container->getParameter('gore_blog.pictures_folder') . '/' . ($dt->format('Y')) .  '/' . ($dt->format('n')), 
+            $folder, 
             $fileName
         );
         
         // creating the picture
         $picture = new Picture();
-        $picture->setUrl($fileName);    // the folder will be taken dynamically from parameter
+        $picture->setUrl($fileName);    // folder taken dynamically from param
         return $picture;
     }
 }

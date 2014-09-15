@@ -24,8 +24,10 @@ class BlogController extends Controller
      */
     private function getCommonData(){
         // Parameters
-        $picturesFolder = $this->container->getParameter('gore_blog.pictures_folder');
-        $blogTitle      = $this->container->getParameter('gore_blog.blog_title');
+        $picturesFolder = $this->container
+                               ->getParameter('gore_blog.pictures_folder');
+        $blogTitle      = $this->container
+                               ->getParameter('gore_blog.blog_title');
         
         // tags cloud data
         $tags = $this->get('gore_blog.articles_manager')->getTagsCloudData();
@@ -42,8 +44,10 @@ class BlogController extends Controller
     
     public function indexAction(){
         // getting articles
-        $mains      = $this->get('gore_blog.articles_manager')->getMainArticles();
-        $olders     = $this->get('gore_blog.articles_manager')->getOlderArticles();
+        $mains  = $this->get('gore_blog.articles_manager')
+                       ->getMainArticles();
+        $olders = $this->get('gore_blog.articles_manager')
+                       ->getOlderArticles();
         
         return $this->render('GoreBlogBundle:Blog:index.html.twig', array(
             'commonData'        => $this->getCommonData(),
@@ -76,12 +80,16 @@ class BlogController extends Controller
     public function loadMoreAction(Request $request){
         if ($request->getMethod() === "POST"){
             if ($request->request->get('page')){
-                $page = intval($request->request->get('page')); // return 0 if POST param is NaN
+                // returns 0 if POST param is NaN
+                $page = intval($request->request->get('page')); 
                 if ($page === 0) $page = 1;
                 
-                $articles = $this->get('gore_blog.articles_manager')->getOlderArticles($page);
+                $articles = $this->get('gore_blog.articles_manager')
+                                 ->getOlderArticles($page);
+                
                 if (count($articles) > 0){
-                    return $this->render('GoreBlogBundle:Article:thumbnails.html.twig', array(
+                    $view = 'GoreBlogBundle:Article:thumbnails.html.twig';
+                    return $this->render($view, array(
                         'commonData'        => $this->getCommonData(),
                         'articles'          => $articles,
                     ));
@@ -101,7 +109,8 @@ class BlogController extends Controller
      * @return type
      */
     public function aboutMeAction(){
-        return $this->render('GoreBlogBundle:StaticPages:about-me.html.twig', array(
+        $view = 'GoreBlogBundle:StaticPages:about-me.html.twig';
+        return $this->render($view, array(
             'commonData'        => $this->getCommonData(),
         ));
     }

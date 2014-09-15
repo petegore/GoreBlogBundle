@@ -12,10 +12,14 @@ class ArticlesManager extends \Twig_Extension {
     protected $doctrine;
     protected $container;
     
-    public function __construct(\Doctrine\Bundle\DoctrineBundle\Registry $doctrine, ContainerInterface $sc){
+    public function __construct(
+        \Doctrine\Bundle\DoctrineBundle\Registry $doctrine, 
+        ContainerInterface $sc
+    ){
         $this->doctrine     = $doctrine;
         $this->container    = $sc;
-        $this->repo         = $doctrine->getManager()->getRepository('GoreBlogBundle:Article');
+        $this->repo         = $doctrine->getManager()
+                                       ->getRepository('GoreBlogBundle:Article');
     }
     
     
@@ -51,8 +55,6 @@ class ArticlesManager extends \Twig_Extension {
     
     
     
-    
-    
     /**
      * findAll
      * Return all article in database
@@ -61,6 +63,7 @@ class ArticlesManager extends \Twig_Extension {
     public function findAll(){
         return $this->repo->findAllDesc();
     }
+    
     
     
     /**
@@ -73,13 +76,26 @@ class ArticlesManager extends \Twig_Extension {
     }
     
     
+    
+    /**
+     * getOlderArticles
+     * Get articles to display on a certain page
+     * @param type $page
+     * @return type
+     */
     public function getOlderArticles($page = 1){
-        $numberOfMainArticleToGet   = $this->container->getParameter('gore_blog.main_articles_to_show');
-        $numberOfSmallArticleToGet  = $this->container->getParameter('gore_blog.small_articles_to_show');
+        $numberOfMainArticleToGet   = $this
+            ->container
+            ->getParameter('gore_blog.main_articles_to_show');
+        
+        $numberOfSmallArticleToGet  = $this
+            ->container
+            ->getParameter('gore_blog.small_articles_to_show');
         
         $firstResult = $numberOfMainArticleToGet + ($page - 1) * $numberOfSmallArticleToGet;
         return $this->repo->getArticles($firstResult, $numberOfSmallArticleToGet);
     }
+    
     
     
     /**
@@ -88,9 +104,13 @@ class ArticlesManager extends \Twig_Extension {
      * @return type
      */
     public function getMainArticles(){
-        $numberOfMainArticleToGet = $this->container->getParameter('gore_blog.main_articles_to_show');
+        $numberOfMainArticleToGet = $this
+            ->container
+            ->getParameter('gore_blog.main_articles_to_show');
+        
         return $this->repo->getLastArticles($numberOfMainArticleToGet);
     }
+    
     
     
     /**
@@ -110,6 +130,7 @@ class ArticlesManager extends \Twig_Extension {
     }
     
     
+    
     /**
      * fillPrepersistArticle
      * Fill default fields of an article like author
@@ -117,7 +138,11 @@ class ArticlesManager extends \Twig_Extension {
      * @return \Gore\BlogBundle\Entity\Article
      */
     public function fillPrepersistArticle(Article $article){
-        $article->setAuthor($this->container->get('security.context')->getToken()->getUser());
+        $article->setAuthor($this->container
+                                 ->get('security.context')
+                                 ->getToken()
+                                 ->getUser()
+        );
         return $article;
     }
     
@@ -128,8 +153,10 @@ class ArticlesManager extends \Twig_Extension {
      * Get most used keyword in the blog and random them
      */
     public function getTagsCloudData(){
-        $mostUsedKeywords = $this->doctrine->getManager()->getRepository('GoreBlogBundle:Keyword')->getMostUsedKeywords(10);
-        
+        $mostUsedKeywords = $this->doctrine
+                                 ->getManager()
+                                 ->getRepository('GoreBlogBundle:Keyword')
+                                 ->getMostUsedKeywords(10);
         
         return $mostUsedKeywords;
     }

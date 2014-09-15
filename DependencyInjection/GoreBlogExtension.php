@@ -23,12 +23,27 @@ class GoreBlogExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         // putting some of our config.yml parameters accessibles from the ServiceContainer
-        $container->setParameter('gore_blog.pictures_folder',           $config['pictures_folder']);
-        $container->setParameter('gore_blog.blog_title',                $config['blog_title']);
-        $container->setParameter('gore_blog.main_articles_to_show',     $config['main_articles_to_show']);
-        $container->setParameter('gore_blog.small_articles_to_show',    $config['small_articles_to_show']);
+        $container->setParameter(
+            'gore_blog.pictures_folder',           
+            $config['pictures_folder']
+        );
+        $container->setParameter(
+            'gore_blog.blog_title', 
+            $config['blog_title']
+        );
+        $container->setParameter(
+            'gore_blog.main_articles_to_show', 
+            $config['main_articles_to_show']
+        );
+        $container->setParameter(
+            'gore_blog.small_articles_to_show', 
+            $config['small_articles_to_show']
+        );
         
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\YamlFileLoader(
+            $container, 
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         $loader->load('services.yml');
     }
     
