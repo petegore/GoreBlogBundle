@@ -160,6 +160,30 @@ class ArticlesManager extends \Twig_Extension {
         
         return $mostUsedKeywords;
     }
+    
+    
+    
+    /**
+     * getPreviousArticleFromGivenOne
+     * Get the article just before the given one (chronologically)
+     * @param \Gore\BlogBundle\Entity\Article $article
+     * @return type
+     */
+    public function getPreviousArticleFromGivenOne(Article $article){
+        return $this->repo->getPrevious($article);
+    }
+    
+    
+    
+    /**
+     * getNextArticleFromGivenOne
+     * Get the article just after the given one (chronologically)
+     * @param \Gore\BlogBundle\Entity\Article $article
+     * @return type
+     */
+    public function getNextArticleFromGivenOne(Article $article){
+        return $this->repo->getNext($article);
+    }
 }
 
 ?>

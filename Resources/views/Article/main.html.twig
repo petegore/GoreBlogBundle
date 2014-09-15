@@ -1,23 +1,33 @@
  {# Template of one main article #}
 
-<div class="main-article" 
+<div class="main-article {% if forSidebar is defined and forSidebar == true %}fullwidth{% endif %}" 
      onClick="window.location='{{ path('gore_blog_article', {'slug': article.slug}) }}';"
 >
-        <div class="title">
+    <div class="title">
+        {% if title is defined and title is not null %}
+            {{ title|raw }}
+        {% else %}
             {{ article.date|readabledate }}
-            <div class="triangle-down"></div>
+        {% endif %}
+        <div class="triangle-down"></div>
+    </div>
+    <div class="content">
+        <div class="content-part thumb"
+            style="background-image:url('{{ asset(commonData.picturesFolder ~ article.thumbnail.url) }}');"
+        >
+            &nbsp;
         </div>
-        <div class="content">
-            <div class="content-part thumb"
-                style="background-image:url('{{ asset(commonData.picturesFolder ~ article.thumbnail.url) }}');"
-            >
-                &nbsp;
-            </div>
-            <div class="content-part color">
-                &nbsp;
-            </div>
-            <div class="content-part infos">
-                <div class="text-center">{{ article.title }}</div>
+        <div class="content-part color">
+            &nbsp;
+        </div>
+        <div class="content-part infos">
+            <div class="text-center">
+                {{ article.title }}
+                <br/>
+                {% if title is defined and title is not null %}
+                    <span class="date">{{ article.date|readabledate }}</span>
+                {% endif %}
             </div>
         </div>
+    </div>
 </div>

@@ -5,11 +5,10 @@
         <title>{% block title %}Gore Blog{% endblock %}</title>
         {% block common_stylesheets %}
             {# This bootstrap-back is used only if the booostrap CDN is down #}
-            <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/bootstrap-back.css') }}">
             <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
             <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/blog.css') }}">
             <link rel="stylesheet" href="{{ asset('bundles/goreblog/css/custom.css') }}">
-            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset('bundles/goreblog/lib/syntax-highlighter/styles/shCore.css') }}">
             <link rel="stylesheet" href="{{ asset('bundles/goreblog/lib/syntax-highlighter/styles/shThemeMidnight.css') }}">
         {% endblock %}
@@ -33,14 +32,20 @@
         {% block body %}
             <div class="container">
                 <div class="row row-offcanvas row-offcanvas-right">
+                    
                     {% block sidebar %}
-                        {% include 'GoreBlogBundle:Blog:sidebar.html.twig' %}
+                        <div id="sidebar" class="col-md-3">
+                            {% block sidebar_add_before %}
+                                {# space to add custom module according to the page  #}
+                            {% endblock %}
+                            {% include 'GoreBlogBundle:Blog:sidebar-common.html.twig' %}
+                            {% block sidebar_add_after %}{% endblock %}
+                        </div>
                     {% endblock %}
 
                     <div class="col-md-9" id="blog-page">
                         {% block page_content %}
                             <div class="homepage-part main-articles-container">
-                                <div class="homepage-title">{% trans %}Last articles{% endtrans %}</div>
                                 {% if mains is defined and mains is not null %}
                                     {% for article in mains %}
                                         {% include 'GoreBlogBundle:Article:main.html.twig' with {'article': article} %}
@@ -55,7 +60,7 @@
                                         {% include 'GoreBlogBundle:Article:thumbnails.html.twig' with {'articles': olders} %}
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12 text-center">
+                                        <div class="col-md-12 text-center load-more-container">
                                             <div id="load-more" class="btn btn-default" data-page="2">{% trans %}Load more !{% endtrans %}</div>
                                         </div>
                                     </div>
@@ -76,5 +81,10 @@
                 SyntaxHighlighter.all()
             </script>
         {% endblock %}
+            
+        {# the loading image html code that can be taker by JS from anywhere #}
+        <div id="loader-image" style="display:none;">
+            <img src="{{ asset('bundles/goreblog/images/loader.gif') }}"/>
+        </div>
     </body>
 </html>

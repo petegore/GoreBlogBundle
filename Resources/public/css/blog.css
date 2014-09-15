@@ -17,11 +17,11 @@ root {
 
 body {
     background-color: #F9F9F9;
-    background: -webkit-linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* Chrome 10+, Saf5.1+ */
-    background:    -moz-linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* FF3.6+ */
-    background:     -ms-linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* IE10 */
-    background:      -o-linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* Opera 11.10+ */
-    background:         linear-gradient(0deg, #ECE9E6 10%, #FFFFFF 90%); /* W3C */
+    background: -webkit-linear-gradient(90deg, #DEDEDE 10%, #FFFFFF 90%); /* Chrome 10+, Saf5.1+ */
+    background:    -moz-linear-gradient(90deg, #DEDEDE 10%, #FFFFFF 90%); /* FF3.6+ */
+    background:     -ms-linear-gradient(90deg, #DEDEDE 10%, #FFFFFF 90%); /* IE10 */
+    background:      -o-linear-gradient(90deg, #DEDEDE 10%, #FFFFFF 90%); /* Opera 11.10+ */
+    background:         linear-gradient(90deg, #DEDEDE 10%, #FFFFFF 90%); /* W3C */
 }
 
 #blog-page {
@@ -53,10 +53,61 @@ body {
 
 
 /*
+ * == NAVBAR
+ */
+.navbar .container {
+    position: relative;
+}
+
+.navbar .triangle-down {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #333333;
+    bottom: -15px;
+    height: 0;
+    right: 30px;
+    position: absolute;
+    z-index: 10;
+}
+
+.navbar .social-link {
+    font-size: 25px;
+}
+.navbar .social-link a {
+    padding: 14px 10px 0 5px;
+}
+
+
+
+/*
  * == SIDEBAR
  */
 #sidebar {
     padding: 0 15px 0 0;
+}
+
+.sidebar-part {
+    margin-top: 15px;
+    margin-top: 15px;
+}
+
+.sidebar-part .title {
+    height: 29px;
+    position: relative;
+    border-bottom: 2px solid grey;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sidebar-part .title .triangle-down {
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #333333;
+    bottom: -7px;
+    height: 0;
+    position: absolute;
+    right: 30px;
+    z-index: 10;
 }
 
 
@@ -73,6 +124,10 @@ body {
     margin: 0;
 }
 
+
+
+
+
 /** HEADER STYLES - BEGIN **/
 input#search-input {
     width: 300px;
@@ -84,6 +139,9 @@ input#search-input {
 
 
 
+
+
+
 /** GENERAL BODY STYLES - BEGIN **/
 div.page-title {
     font-size: 2em;
@@ -91,6 +149,9 @@ div.page-title {
     font-weight: bold;
 }
 /** GENERAL BODY STYLES - END **/
+
+
+
 
 
 
@@ -112,7 +173,13 @@ div.page-title {
     width: 48.7%; /* @TODO check why */
     margin-right: 2%;
 }
-.main-article:nth-child(2n+1){
+/* used for the column articles in the article page */
+.main-article.fullwidth {
+    width: 100%;
+    height: 150px;
+}
+
+.main-article:nth-child(2n){
     margin-right: 0;
 }
 .main-article:hover {
@@ -130,6 +197,11 @@ div.page-title {
     padding-top: 10px;
     position: relative;
 }
+.main-article.fullwidth .title {
+    height: 30px;
+    font-size: 17px;
+    padding: 3px 10px;
+}
 
 .main-article .title .triangle-down {
     border-left: 15px solid transparent;
@@ -142,11 +214,18 @@ div.page-title {
     width: 0;
     z-index: 10;
 }
+.main-article.fullwidth .title .triangle-down {
+    border-width: 10px;
+    bottom: -10px;
+}
 
 .main-article .content {
     position: relative;
     height: 150px;
     overflow: hidden;
+}
+.main-article.fullwidth .content {
+    height: 120px;
 }
 
 .main-article .content-part {
@@ -154,6 +233,10 @@ div.page-title {
     width: 100%;
     height: 148px;
 }
+.main-article.fullwidth .content-part {
+    height: 118px;
+}
+
 .main-article .content-part:nth-child(1){
     z-index: 4;
 }
@@ -187,6 +270,12 @@ div.page-title {
     font-weight: bold;
 }
 
+.main-article .infos .date  {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+
 .main-article .infos div {
     display: table-cell;
     vertical-align: middle;
@@ -204,6 +293,9 @@ div.page-title {
 }
 
 /** MAIN ARTICLES STYLES - END **/
+
+
+
 
 
 
@@ -270,15 +362,31 @@ div.page-title {
 
 
 
+
+
 /*
  * == ARTICLE PAGE
  */
-.article .title {
-    background-color: #f9f9f9;
+.article .topbar {
+    display: table;
+    width: 100%;
     border-bottom: 1px solid #efefef;
+}
+
+.article .topbar div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.article .title {
     font-size: 25px;
-    text-align: center;
-    text-transform: uppercase;
+    padding-left: 10px;
+}
+
+.article .date {
+    font-size: 0.9em;
+    padding-right: 10px;
+    text-align: right;
 }
 
 .article .content {
@@ -286,8 +394,14 @@ div.page-title {
     text-align: justify;
 }
 
+.article .article-image {
+    text-align: center;
+    margin-top: 20px;
+}
+
 .article img {
     border: 1px solid #999999;
-    max-width: 100%;
+    margin: auto;
+    max-width: 60%;
     padding: 5px;
 }

@@ -28,6 +28,8 @@ class BlogController extends Controller
                                ->getParameter('gore_blog.pictures_folder');
         $blogTitle      = $this->container
                                ->getParameter('gore_blog.blog_title');
+        $socialAccounts = $this->container
+                               ->getParameter('gore_blog.social_networks_urls');
         
         // tags cloud data
         $tags = $this->get('gore_blog.articles_manager')->getTagsCloudData();
@@ -35,13 +37,20 @@ class BlogController extends Controller
         $commonData = array(
             'blogTitle'         => $blogTitle,
             'picturesFolder'    => $picturesFolder,
-            'tagsCloudTags'     => $tags
+            'tagsCloudTags'     => $tags,
+            'socialAccounts'    => $socialAccounts
         );
         
         return $commonData;
     }
 
     
+    
+    /**
+     * indexAction
+     * Homepage action
+     * @return type
+     */
     public function indexAction(){
         // getting articles
         $mains  = $this->get('gore_blog.articles_manager')
@@ -64,9 +73,16 @@ class BlogController extends Controller
      * @param \Gore\BlogBundle\Entity\Article $article
      */
     public function articleAction(Article $article){
+        $mgr = $this->get('gore_blog.articles_manager');
+        
+        $previousArticle    = $mgr->getPreviousArticleFromGivenOne($article);
+        $nextArticle        = $mgr->getNextArticleFromGivenOne($article);
+        
         return $this->render('GoreBlogBundle:Article:article.html.twig', array(
-            'commonData'        => $this->getCommonData(),
-            'article'           => $article
+            'commonData'    => $this->getCommonData(),
+            'article'       => $article,
+            'previous'      => $previousArticle,
+            'next'          => $nextArticle
         ));
     }
     

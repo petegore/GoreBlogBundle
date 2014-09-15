@@ -1,0 +1,21 @@
+{# sidebar template #}
+
+<div class="sidebar-part">
+    <div class="title">
+        {% trans %}Categories{% endtrans %}
+        <div class="triangle-down"></div>
+    </div>
+    <div class="menu-part">
+        En cours...
+    </div> 
+</div>
+
+<div class="sidebar-part">
+    <div class="title">
+        {% trans %}Popular tags{% endtrans %}
+        <div class="triangle-down"></div>
+    </div>
+    <div class="menu-part">
+        {% include 'GoreBlogBundle:Modules:tags-cloud.html.twig' %}
+    </div> 
+</div>

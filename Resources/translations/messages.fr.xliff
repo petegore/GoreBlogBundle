@@ -25,7 +25,27 @@
 
             <trans-unit id="5">
                 <source>Popular tags</source>
-                <target>Mots-clés</target>
+                <target>Mots-clés populaires</target>
+            </trans-unit>
+            
+            <trans-unit id="7">
+                <source>Previous article</source>
+                <target>Article précédent</target>
+            </trans-unit>
+            
+            <trans-unit id="8">
+                <source>Next article</source>
+                <target>Article suivant</target>
+            </trans-unit>
+            
+            <trans-unit id="9">
+                <source>Categories</source>
+                <target>Catégories</target>
+            </trans-unit>
+            
+            <trans-unit id="10">
+                <source>View me on</source>
+                <target>Retrouvez-moi sur</target>
             </trans-unit>
         </body>
     </file>

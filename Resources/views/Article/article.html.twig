@@ -2,11 +2,28 @@
 
 {% extends "GoreBlogBundle:Blog:index.html.twig" %}
 
+{% set previousIcon = '<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;' %}
+{% set nextIcon     = '<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;' %}
+
+{% block sidebar_add_before %}
+    <div class="main-articles-container">
+        {% if next is not null %}
+            {% include 'GoreBlogBundle:Article:main.html.twig' with {'article': next, 'forSidebar': true, 'title': nextIcon ~ "Next article"|trans} %}
+        {% endif %}
+        {% if previous is not null %}
+            {% include 'GoreBlogBundle:Article:main.html.twig' with {'article': previous, 'forSidebar': true, 'title': previousIcon ~ "Previous article"|trans} %}
+        {% endif %}
+    </div>
+{% endblock %}
+
 {% block page_content %}
     <div class="page-part">
         {% if article is defined and article is not null %}
             <div class="article">
-                <div class="title">{{ article.title }}</div>
+                <div class="topbar">
+                    <div class="title">{{ article.title }}</div>
+                    <div class="date">{{ article.date|readabledate }}</div>
+                </div>
                 <div class="content">
                     {{ article.content|raw }}
 

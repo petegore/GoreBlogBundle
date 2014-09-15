@@ -3,6 +3,7 @@
 namespace Gore\BlogBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Gore\BlogBundle\Entity\Article;
 
 
 /**
@@ -35,6 +36,46 @@ class ArticleRepository extends EntityRepository
     public function findAllPublic(){
         $qb = $this->getMainPublicQb();
         return $qb->getQuery()->getResult();
+    }
+    
+    
+    
+    /**
+     * getPrevious
+     * Get the article just before the given one (chronologically)
+     * @param \Gore\BlogBundle\Entity\Article $article
+     * @return type
+     */
+    public function getPrevious(Article $article){
+        $qb = $this->createQueryBuilder('a')
+                   ->where('a.published = true')
+                   ->andWhere('a.date < :givendate')
+                   ->orderBy('a.date', 'DESC')
+                   ->setParameter('givendate', $article->getDate())
+                   ->setFirstResult(0)
+                   ->setMaxResults(1);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+    
+    
+    
+    /**
+     * getNext
+     * Get the article just after the given one (chronologically)
+     * @param \Gore\BlogBundle\Entity\Article $article
+     * @return type
+     */
+    public function getNext(Article $article){
+        $qb = $this->createQueryBuilder('a')
+                   ->where('a.published = true')
+                   ->andWhere('a.date > :givendate')
+                   ->orderBy('a.date', 'ASC')
+                   ->setParameter('givendate', $article->getDate())
+                   ->setFirstResult(0)
+                   ->setMaxResults(1);
+        
+        return $qb->getQuery()->getOneOrNullResult();
     }
     
     

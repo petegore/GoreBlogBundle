@@ -27,7 +27,7 @@ $(function(){
     
     
     // listener of the button "load more"
-    $("#load-more").click(function(){
+    $(".load-more-container").on("click", "#load-more", function(){
         var page = $(this).data("page");
         if (page === 0) return false;
         if (page === undefined) page = 2;
@@ -38,8 +38,17 @@ $(function(){
 
 
 
-
+/**
+ * 
+ * @param {type} page
+ * @param {type} caller
+ * @returns {undefined}
+ */
 function loadNextArticles(page, caller){
+    // showing the loading image instead of the button
+    var callerParent = caller.parent();
+    callerParent.html($("#loader-image").html());
+            
     $.ajax({
         url : loadMoreUrl,
         method : 'POST',
@@ -58,9 +67,11 @@ function loadNextArticles(page, caller){
                     alert("Couldn't load the next articles. Error " + result + ". Please contact the webmaster.");
                 }
             }
+            callerParent.html(caller);
         },
         error : function(code_html, statut){
             alert("Couldn't load the next articles. Error 500. Please contact the webmaster.");
+            callerParent.html(caller);
         }
     });
 }

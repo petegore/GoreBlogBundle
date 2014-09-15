@@ -39,6 +39,10 @@ class GoreBlogExtension extends Extension
             'gore_blog.small_articles_to_show', 
             $config['small_articles_to_show']
         );
+        $container->setParameter(
+            'gore_blog.social_networks_urls', 
+            $config['social_networks_urls']
+        );
         
         $loader = new Loader\YamlFileLoader(
             $container, 

@@ -4,20 +4,58 @@
     Author     : Pierre Gori
     Description:
         Contains style that should be changed together
+        Here is a great website to choose your colors : http://colourco.de/
 */
 
-.navbar-inverse,
+.navbar-inverse  {
+    background-color: #336198;
+    color: #EFEFEF !important;
+}
+
+.navbar .triangle-down {
+    border-top-color: #336198;
+}
+
+.navbar-inverse .navbar-nav > li.social-link > a:hover {
+    color: #f4e21d;
+}
+
 .thumbnail-article > .color,
 .main-article .color {
-    background-color: #3a7bd5;
+    background-color: #3f7abf;
     color: #EFEFEF !important;
+}
+
+.article .topbar {
+    background-color: #333333;
 }
 
 .article .title,
 .page-part > .title {
-    color: #3a7bd5;
+    color: #EFEFEF;
+}
+
+.article .date {
+    color: #DEDEDE;
 }
 
 .thumbnail-article:hover {
-    border-color: #3a7bd5;
+    border-color: #333333;
+}
+
+#load-more {
+    background-color: #333333;
+    border-color: #333333;
+    color: #FFFFFF;
+}
+#load-more:hover {
+    background-color: #3f7abf;
+}
+
+.sidebar-part .title {
+    border-color: #333333;
+    color: #333333;
+}
+.sidebar-part .title .triangle-down {
+    border-top-color: #333333;
 }
