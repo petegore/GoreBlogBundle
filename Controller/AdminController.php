@@ -62,7 +62,16 @@ class AdminController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 
                 // Traitement des valeurs par défaut
+                $mgr = $this->get('gore_blog.blog_manager');
                 foreach ($article->getKeywords() as $keyword){
+                    $checkResult = $mgr->checkIfKeywordExists($keyword, true);
+                    if ($checkResult instanceof Keyword){
+                        // if the keywords DOES exist in database
+                        $article->removeKeyword($keyword);
+                        $article->addKeyword($checkResult);
+                    } else {
+                        $em->persist($keyword);
+                    }
                     $keyword->setCategory(false);
                 }
                 
@@ -170,7 +179,16 @@ class AdminController extends Controller
                     $em = $this->getDoctrine()->getManager();
 
                     // Traitement des valeurs par défaut
+                    $mgr = $this->get('gore_blog.blog_manager');
                     foreach ($article->getKeywords() as $keyword){
+                        $checkResult = $mgr->checkIfKeywordExists($keyword, true);
+                        if ($checkResult instanceof Keyword){
+                            // if the keywords DOES exist in database
+                            $article->removeKeyword($keyword);
+                            $article->addKeyword($checkResult);
+                        } else {
+                            $em->persist($keyword);
+                        }
                         $keyword->setCategory(false);
                     }
 

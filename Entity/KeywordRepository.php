@@ -61,4 +61,23 @@ class KeywordRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    
+    
+    /**
+     * getKeywordIfExists
+     * Check if a keyword exists in DB
+     * NOTE : the Keyword in parameter is not a DB Keyword but a Keyword
+     * created by the form->bind() ; id doesn't have any ID yet
+     * @param \Gore\BlogBundle\Entity\Keyword $keyword
+     * @return null if there is 0 et many keywords with this name ; the 
+     * keyword if it's alone in the DB
+     */
+    public function getKeywordIfExists(Keyword $keyword){
+         $qb = $this->createQueryBuilder('k')
+                    ->where('k.category = false')
+                    ->where('k.name = :name')
+                    ->setParameter('name', $keyword->getName());
+         
+         return $qb->getQuery()->getOneOrNullResult();
+    }
 }

@@ -6,7 +6,7 @@
         <h2>Update the article</h2>
         {% if article.thumbnail is not null %}
             <div class="edited-article-thumbnail">
-                <img src="{{ asset(picturesFolder ~ article.thumbnail.url ) }}"/>
+                <img src="{{ asset(commonData.picturesFolder ~ article.thumbnail.url ) }}"/>
             </div>
         {% endif %}
     {% else %}

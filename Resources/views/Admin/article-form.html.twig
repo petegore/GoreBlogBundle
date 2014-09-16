@@ -1,6 +1,14 @@
 {# Article form for adding and updating articles #}
 
-<form role="form" class="form article-form" method="post" {{ form_enctype(form) }} action="{{ path('gore_blog_admin_add_article') }}">
+<form role="form" 
+      class="form article-form" 
+      method="post" {{ form_enctype(form) }} 
+      {% if editionMode is defined %}
+        action="{{ path('gore_blog_admin_edit_article', {'id': article.id}) }}"
+      {% else %}
+        action="{{ path('gore_blog_admin_add_article') }}"
+      {% endif %}
+>
     <div class="form-group">
         <label for="exampleInputEmail1">
             Current author : 

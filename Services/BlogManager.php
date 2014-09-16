@@ -5,6 +5,7 @@ namespace Gore\BlogBundle\Services;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Gore\BlogBundle\Entity\Article;
 use Gore\BlogBundle\Entity\Picture;
+use Gore\BlogBundle\Entity\Keyword;
 
 
 class BlogManager extends \Twig_Extension {
@@ -262,6 +263,29 @@ class BlogManager extends \Twig_Extension {
         return $commonData;
     }
 
+    
+    
+    /**
+     * checkIfKeywordExist
+     * Check in database if the current keyword already exist
+     * @param \Gore\BlogBundle\Services\Keyword $keyword
+     * @return if it does NOT exist ; or the Keyword in database if it exists
+     */
+    public function checkIfKeywordExists(Keyword $keyword){
+        if ($keyword === null) return false;
+        
+        // counting how many times the keyword's name exists in DB
+        $keywordDb = $this->doctrine
+                          ->getManager()
+                          ->getRepository('GoreBlogBundle:Keyword')
+                          ->getKeywordIfExists($keyword);
+        
+        if ($keywordDb !== null && $keywordDb instanceof Keyword){
+            return $keywordDb;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>
