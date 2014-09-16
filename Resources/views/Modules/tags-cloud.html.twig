@@ -1,11 +1,17 @@
 {# sidebar module "tags cloud" #}
 
 {% if commonData.tagsCloudTags is defined and commonData.tagsCloudTags is not null %}
-    <div class="tags-cloud">
+    <div class="tags-cloud tags">
         {% for tag in commonData.tagsCloudTags %}
-            <span class="tag">
+            <a class="tag" 
+               style="font-size:{{ tag.fontSize }};" 
+               href="{{ path('gore_blog_find_by_tag', {'name': tag.name}) }}"
+            >
                 {{ tag.name }}
-            </span>
+            </a>
+            {% if loop.index < commonData.tagsCloudTags|length %}
+                &bull; 
+            {% endif %}
         {% endfor %}
     </div>
 {% endif %}

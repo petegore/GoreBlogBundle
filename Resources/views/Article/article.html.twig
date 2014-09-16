@@ -14,6 +14,20 @@
             {% include 'GoreBlogBundle:Article:main.html.twig' with {'article': previous, 'forSidebar': true, 'title': previousIcon ~ "Previous article"|trans} %}
         {% endif %}
     </div>
+        
+    {% if article.keywords|length > 0 %}
+        <div class="sidebar-part">
+            <div class="title">
+                {% trans %}Article tags{% endtrans %}
+            </div>
+            <div class="menu-part tags">
+                {% for tag in article.keywords %}
+                    <a class="tag" href="#">{{ tag.name }}</a>
+                    {% if loop.index < article.keywords|length %}  &bull; {% endif %}
+                {% endfor %}
+            </div> 
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block page_content %}

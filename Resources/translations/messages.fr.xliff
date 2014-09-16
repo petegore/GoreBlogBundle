@@ -47,6 +47,21 @@
                 <source>View me on</source>
                 <target>Retrouvez-moi sur</target>
             </trans-unit>
+            
+            <trans-unit id="11">
+                <source>Article tags</source>
+                <target>Mots-clés de l'article</target>
+            </trans-unit>
+            
+            <trans-unit id="12">
+                <source>Search results</source>
+                <target>Résultats de la recherche</target>
+            </trans-unit>
+            
+            <trans-unit id="13">
+                <source>No article have been found for this tag</source>
+                <target>Aucun article trouvé pour le mot-clé demandé</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

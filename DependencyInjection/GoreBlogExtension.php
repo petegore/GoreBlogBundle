@@ -43,6 +43,10 @@ class GoreBlogExtension extends Extension
             'gore_blog.social_networks_urls', 
             $config['social_networks_urls']
         );
+        $container->setParameter(
+            'gore_blog.tags_cloud_params', 
+            $config['tags_cloud']
+        );
         
         $loader = new Loader\YamlFileLoader(
             $container, 

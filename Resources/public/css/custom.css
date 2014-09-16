@@ -59,3 +59,16 @@
 .sidebar-part .title .triangle-down {
     border-top-color: #333333;
 }
+
+.sidebar-part .list-item {
+    color: #3f7abf;
+}
+.sidebar-part .list-item:hover,
+.sidebar-part .list-item a:hover {
+    background-color: #3f7abf;
+    text-decoration: none;
+    color: white !important;
+}
+a.tag:hover {
+    color: #333333;
+}

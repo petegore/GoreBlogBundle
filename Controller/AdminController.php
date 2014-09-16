@@ -19,29 +19,10 @@ class AdminController extends Controller
 {
     /**
      * getCommonData
-     * Get data common to many pages on the blog. For example : 
-     *      > the blog title
-     *      > the pictures folder
-     *      > sidebar data
-     *      > etc...
+     * Get data common to many pages on the blog
      */
     private function getCommonData(){
-        // Parameters
-        $picturesFolder = $this->container
-                               ->getParameter('gore_blog.pictures_folder');
-        $blogTitle      = $this->container
-                               ->getParameter('gore_blog.blog_title');
-        
-        // tags cloud data
-        $tags = $this->get('gore_blog.articles_manager')->getTagsCloudData();
-        
-        $commonData = array(
-            'blogTitle'         => $blogTitle,
-            'picturesFolder'    => $picturesFolder,
-            'tagsCloudTags'     => $tags
-        );
-        
-        return $commonData;
+        return $this->get('gore_blog.blog_manager')->getCommonData();
     }
     
     
@@ -126,7 +107,7 @@ class AdminController extends Controller
                              ->getManager()
                              ->getRepository('GoreBlogBundle:Article');
         
-        $articles = $this->get('gore_blog.articles_manager')->findAll();
+        $articles = $this->get('gore_blog.blog_manager')->findAll();
         
         $view = 'GoreBlogBundle:Admin:articles-list.html.twig';
         return $this->render($view, array(
@@ -143,7 +124,7 @@ class AdminController extends Controller
      * @return type
      */
     public function deleteArticleAction(Article $article){
-        if ($this->get('gore_blog.articles_manager')->delete($article)){
+        if ($this->get('gore_blog.blog_manager')->delete($article)){
             $message = 'Article "' . 
                         $article->getTitle() . 
                         '" has been correctly deleted.';

@@ -3,8 +3,8 @@ parameters:
 
 services:
     # Managers
-    gore_blog.articles_manager:
-        class: Gore\BlogBundle\Services\ArticlesManager
+    gore_blog.blog_manager:
+        class: Gore\BlogBundle\Services\BlogManager
         arguments: ["@doctrine", "@service_container"]
         tags:
             - { name: twig.extension }

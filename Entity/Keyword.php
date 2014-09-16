@@ -35,6 +35,11 @@ class Keyword
      */
     private $category;
 
+    /**
+     * REVERSED RELATION
+     * @ORM\ManyToMany(targetEntity="Gore\BlogBundle\Entity\Article", mappedBy="keywords")
+     */
+    private $articles;
 
     /**
      * Get id
@@ -90,5 +95,45 @@ class Keyword
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add articles
+     *
+     * @param \Gore\BlogBundle\Entity\Article $articles
+     * @return Keyword
+     */
+    public function addArticle(\Gore\BlogBundle\Entity\Article $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \Gore\BlogBundle\Entity\Article $articles
+     */
+    public function removeArticle(\Gore\BlogBundle\Entity\Article $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 }

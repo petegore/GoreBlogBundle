@@ -53,17 +53,25 @@
                                 {% endif %}
                             </div>
                             
+                            {% if isSearch is not defined %}
+                                <hr class="homepage-hr"/>
+                            {% endif %}
+                            
                             <div class="homepage-part main-articles-container">
-                                <div class="homepage-title">&nbsp;</div>
                                 <div id="small-articles">
+                                    {% if isSearch is defined %}
+                                        <div class="homepage-title">{% trans %}Search results{% endtrans %}</div>
+                                    {% endif %}
                                     <div class="row articles-container">
                                         {% include 'GoreBlogBundle:Article:thumbnails.html.twig' with {'articles': olders} %}
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12 text-center load-more-container">
-                                            <div id="load-more" class="btn btn-default" data-page="2">{% trans %}Load more !{% endtrans %}</div>
+                                    {% if isSearch is not defined %}
+                                        <div class="row">
+                                            <div class="col-md-12 text-center load-more-container">
+                                                <div id="load-more" class="btn btn-default" data-page="2">{% trans %}Load more !{% endtrans %}</div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         {% endblock %}

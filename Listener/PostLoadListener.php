@@ -22,7 +22,7 @@ class PostLoadListener {
      */
     public function postLoad(LifecycleEventArgs $args){
         $entity = $args->getEntity();
-        $articlesManager = $this->container->get('gore_blog.articles_manager');
+        $articlesManager = $this->container->get('gore_blog.blog_manager');
 
         if ($entity instanceof Picture){
             // not used anymore

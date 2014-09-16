@@ -7,7 +7,7 @@ use Gore\BlogBundle\Entity\Article;
 use Gore\BlogBundle\Entity\Picture;
 
 
-class ArticlesManager extends \Twig_Extension {
+class BlogManager extends \Twig_Extension {
     
     protected $doctrine;
     protected $container;
@@ -158,7 +158,48 @@ class ArticlesManager extends \Twig_Extension {
                                  ->getRepository('GoreBlogBundle:Keyword')
                                  ->getMostUsedKeywords(10);
         
-        return $mostUsedKeywords;
+        $tagsCloudParams = $this->container
+                                ->getParameter('gore_blog.tags_cloud_params');
+        
+        $unit   = $tagsCloudParams['font_size_unit'];
+        $min    = $tagsCloudParams['min_font_size'];
+        $max    = $tagsCloudParams['max_font_size'];
+        $delta  = abs($max - $min);
+        
+        // additionnal data
+        $tags = array();
+        $maxOccurences = null;
+        foreach($mostUsedKeywords as $tag){
+            // the first is the most used : it has the max size
+            if ($maxOccurences === null){
+                $maxOccurences = $tag['compteur'];
+                $fontSize = $max;
+            } else {
+                $fontSize = $min + floor($delta * $tag['compteur'] / $maxOccurences);
+            }
+            if ($fontSize < $min) $fontSize = $min;
+            if ($fontSize > $max) $fontSize = $max;
+            
+            $tag['fontSize'] = $fontSize . $unit;
+            $tags[] = $tag;
+        }
+        
+        return $tags;
+    }
+    
+    
+    
+    /**
+     * getCategoriesData
+     * Return all categories of the blog
+     * @return type
+     */
+    public function getCategoriesData(){
+        $categories = $this->doctrine
+                           ->getManager()
+                           ->getRepository('GoreBlogBundle:Keyword')
+                           ->getAllCategories();
+        return $categories;
     }
     
     
@@ -184,6 +225,43 @@ class ArticlesManager extends \Twig_Extension {
     public function getNextArticleFromGivenOne(Article $article){
         return $this->repo->getNext($article);
     }
+    
+    
+    
+    /**
+     * getCommonData
+     * Get data common to many pages on the blog. For example : 
+     *      > the blog title
+     *      > the pictures folder
+     *      > sidebar data
+     *      > etc...
+     */
+    public function getCommonData(){
+        // Parameters
+        $picturesFolder = $this->container
+                               ->getParameter('gore_blog.pictures_folder');
+        $blogTitle      = $this->container
+                               ->getParameter('gore_blog.blog_title');
+        $socialAccounts = $this->container
+                               ->getParameter('gore_blog.social_networks_urls');
+        
+        // tags cloud data
+        $tags = $this->container->get('gore_blog.blog_manager')->getTagsCloudData();
+        
+        // categories data
+        $categories = $this->container->get('gore_blog.blog_manager')->getCategoriesData();
+        
+        $commonData = array(
+            'blogTitle'         => $blogTitle,
+            'picturesFolder'    => $picturesFolder,
+            'tagsCloudTags'     => $tags,
+            'socialAccounts'    => $socialAccounts,
+            'categories'        => $categories
+        );
+        
+        return $commonData;
+    }
+
 }
 
 ?>

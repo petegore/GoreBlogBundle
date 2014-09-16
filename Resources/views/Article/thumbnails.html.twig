@@ -1,5 +1,9 @@
  {# Template of one small article #}
 
+{% if articles is null and isSearch is defined %}
+    <div>{% trans %}No article have been found for this tag{% endtrans %}.</div>
+{% endif %}
+
 {% for article in articles %}
     <div class="thumbnail-article" onClick="window.location='{{ path('gore_blog_article', {'slug': article.slug}) }}';">
         <div class="background" style="background-image:url('{{ asset(commonData.picturesFolder ~ article.thumbnail.url) }}');">

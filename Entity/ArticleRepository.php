@@ -109,7 +109,6 @@ class ArticleRepository extends EntityRepository
     }
     
     
-    
     /**
      * getMainPublicQb
      * Generate a basic QueryBuilder for public interface (visible articles)
@@ -136,5 +135,4 @@ class ArticleRepository extends EntityRepository
         
         return $qb;
     }
-    
 }

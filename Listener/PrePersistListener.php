@@ -18,7 +18,7 @@ class PrePersistListener {
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        $articlesManager = $this->container->get('gore_blog.articles_manager');
+        $articlesManager = $this->container->get('gore_blog.blog_manager');
 
         if ($entity instanceof Article) {
             $entity = $articlesManager->fillPrepersistArticle($entity);

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Keyword
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Table(name="goreblog_keywords")
+ * @ORM\Entity(repositoryClass="Gore\BlogBundle\Entity\KeywordRepository")
  */
 class Keyword
 {
@@ -31,10 +31,15 @@ class Keyword
     /**
      * @var boolean
      *
-     * @ORM\Column(name="category", type="boolean")
+     * @ORM\Column(name="category", type="boolean", nullable=true)
      */
     private $category;
 
+    /**
+     * REVERSED RELATION
+     * @ORM\ManyToMany(targetEntity="Gore\BlogBundle\Entity\Article", mappedBy="keywords")
+     */
+    private $articles;
 
     /**
      * Get id

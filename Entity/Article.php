@@ -70,8 +70,12 @@ class Article
     private $thumbnail;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Gore\BlogBundle\Entity\Keyword", cascade={"persist"})
-     * @ORM\JoinTable(name="goreblog_articles_keywords")
+     * @ORM\ManyToMany(targetEntity="Gore\BlogBundle\Entity\Keyword", 
+     *      cascade={"persist"}, 
+     *      inversedBy="articles")
+     * @ORM\JoinTable(name="goreblog_articles_keywords",
+     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="keyword_id", referencedColumnName="id")})
      */
     private $keywords;
     

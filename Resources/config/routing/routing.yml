@@ -14,6 +14,11 @@ gore_blog_load_more:
     requirements:
         method: POST
     
+gore_blog_find_by_tag:
+    pattern:  /tag/{name}
+    defaults: { _controller: GoreBlogBundle:Blog:showTagArticles }
+    
+    
 
 # ADMINISTRATION
 gore_blog_admin:
