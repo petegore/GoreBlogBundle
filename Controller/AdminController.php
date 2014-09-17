@@ -61,19 +61,7 @@ class AdminController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 
-                // Traitement des valeurs par défaut
-                $mgr = $this->get('gore_blog.blog_manager');
-                foreach ($article->getKeywords() as $keyword){
-                    $checkResult = $mgr->checkIfKeywordExists($keyword, true);
-                    if ($checkResult instanceof Keyword){
-                        // if the keywords DOES exist in database
-                        $article->removeKeyword($keyword);
-                        $article->addKeyword($checkResult);
-                    } else {
-                        $em->persist($keyword);
-                    }
-                    $keyword->setCategory(false);
-                }
+                $article = $this->treatArticleBeforePersist($article);
                 
                 // Traitement de l'image
                 $picture = $this->createPictureFromFile(
@@ -169,7 +157,10 @@ class AdminController extends Controller
         $categories = $keywordsRepo->getAllKeywords(1);
         
         if ($article){
-            $form = $this->createForm(new ArticleType, $article);
+            $form = $this->createForm(
+                new ArticleType, 
+                $article
+            );
             $request = $this->get('request');
             
             if ($request->getMethod() == 'POST') {
@@ -178,19 +169,7 @@ class AdminController extends Controller
                 if ($form->isValid()) {
                     $em = $this->getDoctrine()->getManager();
 
-                    // Traitement des valeurs par défaut
-                    $mgr = $this->get('gore_blog.blog_manager');
-                    foreach ($article->getKeywords() as $keyword){
-                        $checkResult = $mgr->checkIfKeywordExists($keyword, true);
-                        if ($checkResult instanceof Keyword){
-                            // if the keywords DOES exist in database
-                            $article->removeKeyword($keyword);
-                            $article->addKeyword($checkResult);
-                        } else {
-                            $em->persist($keyword);
-                        }
-                        $keyword->setCategory(false);
-                    }
+                    $article = $this->treatArticleBeforePersist($article);
 
                     $em->persist($article);
                     $em->flush();
@@ -223,6 +202,34 @@ class AdminController extends Controller
                 $this->generateUrl('gore_blog_admin_manage_articles')
             );
         }
+    }
+    
+    
+    
+    /**
+     * treatArticleBeforePersist
+     * Article treatments common to add or edit article
+     * @param \Gore\BlogBundle\Entity\Article $article
+     * @return \Gore\BlogBundle\Entity\Article
+     */
+    private function treatArticleBeforePersist(Article $article){
+        $em = $this->getDoctrine()->getManager();
+
+        // Traitement des valeurs par défaut
+        $mgr = $this->get('gore_blog.blog_manager');
+        foreach ($article->getKeywords() as $keyword){
+            $checkResult = $mgr->checkIfKeywordExists($keyword, true);
+            if ($checkResult instanceof Keyword){
+                // if the keywords DOES exist in database
+                $article->removeKeyword($keyword);
+                $article->addKeyword($checkResult);
+            } else {
+                $em->persist($keyword);
+            }
+            $keyword->setCategory(false);
+        }
+        
+        return $article;
     }
     
     

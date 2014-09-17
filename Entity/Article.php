@@ -78,6 +78,12 @@ class Article
     private $keywords;
     
     /**
+     * REVERSED RELATION
+     * @ORM\OneToMany(targetEntity="Gore\BlogBundle\Entity\Comment", mappedBy="article")
+     */
+    private $comments;
+    
+    /**
      * @var boolean
      *
      * @ORM\Column(name="published", type="boolean", nullable=true)
