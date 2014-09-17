@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Gore Blog{% endblock %}</title>
+        <title>{% block title %}{{ commonData.blogTitle }}{% endblock %}</title>
         {% block common_stylesheets %}
             {# This bootstrap-back is used only if the booostrap CDN is down #}
             <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">

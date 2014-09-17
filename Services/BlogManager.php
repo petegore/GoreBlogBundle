@@ -154,18 +154,19 @@ class BlogManager extends \Twig_Extension {
      * Get most used keyword in the blog and random them
      */
     public function getTagsCloudData(){
-        $mostUsedKeywords = $this->doctrine
-                                 ->getManager()
-                                 ->getRepository('GoreBlogBundle:Keyword')
-                                 ->getMostUsedKeywords(10);
-        
         $tagsCloudParams = $this->container
                                 ->getParameter('gore_blog.tags_cloud_params');
         
+        $number = $tagsCloudParams['number_of_keywords'];
         $unit   = $tagsCloudParams['font_size_unit'];
         $min    = $tagsCloudParams['min_font_size'];
         $max    = $tagsCloudParams['max_font_size'];
         $delta  = abs($max - $min);
+        
+        $mostUsedKeywords = $this->doctrine
+                                 ->getManager()
+                                 ->getRepository('GoreBlogBundle:Keyword')
+                                 ->getMostUsedKeywords($number);
         
         // additionnal data
         $tags = array();
@@ -183,6 +184,11 @@ class BlogManager extends \Twig_Extension {
             
             $tag['fontSize'] = $fontSize . $unit;
             $tags[] = $tag;
+        }
+        
+        // random positions in the cloud
+        if ($tagsCloudParams['shuffle_tags']){
+            shuffle($tags);
         }
         
         return $tags;
@@ -285,6 +291,26 @@ class BlogManager extends \Twig_Extension {
         } else {
             return false;
         }
+    }
+    
+    
+    
+    /**
+     * searchArticles
+     * Search articles in databases
+     * @param type $textToSearch
+     * @return null
+     */
+    public function searchArticles($textToSearch){
+        if ($textToSearch === null) return null;
+        
+        // getting articles searched by title, content, etc...
+        $articles = $this->repo
+                         ->findBySearch($textToSearch);
+        
+        // we can also manage here the research by tags
+        
+        return $articles;
     }
 }
 

@@ -62,6 +62,11 @@
                 <source>No article have been found for this tag</source>
                 <target>Aucun article trouvé pour le mot-clé demandé</target>
             </trans-unit>
+            
+            <trans-unit id="14">
+                <source>Search</source>
+                <target>Recherche</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

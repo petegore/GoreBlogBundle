@@ -113,6 +113,27 @@ body {
     padding: 0 15px 0 0;
 }
 
+.sidebar-part .search-input,
+.sidebar-part .search-button {
+    display: inline-block;
+}
+
+.sidebar-part .search-input {
+    height: 31px;
+    margin-top: 3px;
+    margin-right: 0;
+    padding: 5px;
+    width: 84%;
+}
+
+.sidebar-part .search-button {
+    height: 31px;
+    margin-top: 3px;
+    margin-left: 1%;
+    padding: 5px;
+    width: 13%;
+}
+
 .sidebar-part {
     margin-bottom: 30px;
 }

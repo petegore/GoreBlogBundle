@@ -1,5 +1,22 @@
 {# sidebar template #}
 
+{# search bar #}
+<div class="sidebar-part">
+    <div class="title">
+        {% trans %}Search{% endtrans %}
+    </div>
+    <div class="menu-part">
+        <form method="POST" action="{{ path('gore_blog_search') }}">
+            <div>
+                <input class="form-control search-input" type="text" name="gore_blog_search"/>
+                <button class="form-control search-button" type="submit" value="Go"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+    </div> 
+</div>
+
+        
+{# categories list #}
 <div class="sidebar-part">
     <div class="title">
         {% trans %}Categories{% endtrans %}
@@ -11,6 +28,8 @@
     </div> 
 </div>
 
+        
+{# most used tags #}
 <div class="sidebar-part">
     <div class="title">
         {% trans %}Popular tags{% endtrans %}

@@ -51,7 +51,8 @@ class KeywordRepository extends EntityRepository
     public function getMostUsedKeywords($numberOfKeywords, $includeCategories = false){
         $qb = $this->createQueryBuilder('k')
                    ->select('k.id, k.name, count(k) as compteur')
-                   ->groupBy('k.name')
+                   ->join('k.articles', 'a')
+                   ->groupBy('k.id, k.name')
                    ->orderBy('compteur', 'DESC')
                    ->setFirstResult(0)
                    ->setMaxResults($numberOfKeywords);

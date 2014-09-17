@@ -109,6 +109,49 @@ class ArticleRepository extends EntityRepository
     }
     
     
+    
+    /**
+     * findBySearch
+     * Search articles in database according to a given string
+     * @param string $textToSearch the string to search
+     * @param boolean $searchInTitle search in article title or not
+     * @param boolean $searchInContent search in article content or not
+     * @param boolean $searchInTags search in article tags or not
+     */
+    public function findBySearch(
+        $textToSearch,
+        $searchInTitle = true,
+        $searchInContent = true
+    ){
+        $textToSearch = "%$textToSearch%";
+        $qb = $this->getMainPublicQb();
+        
+        $whereClause = '';
+        
+        // searching in title
+        if ($searchInTitle){
+            $whereClause .= 'a.title LIKE :texttitle';
+            $qb->setParameter('texttitle', $textToSearch);
+        }
+        
+        // searching in content
+        if ($searchInContent){
+            if ($whereClause !== ''){
+                $whereClause .= ' OR ';
+            }
+            $whereClause .= 'a.content LIKE :textcontent';
+            $qb->setParameter('textcontent', $textToSearch);
+        }
+        
+        if ($whereClause !== ''){
+            $qb->andWhere($whereClause);
+        }
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    
+    
     /**
      * getMainPublicQb
      * Generate a basic QueryBuilder for public interface (visible articles)
@@ -135,4 +178,7 @@ class ArticleRepository extends EntityRepository
         
         return $qb;
     }
+    
+    
+    
 }

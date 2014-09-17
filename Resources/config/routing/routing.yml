@@ -18,6 +18,11 @@ gore_blog_find_by_tag:
     pattern:  /tag/{name}
     defaults: { _controller: GoreBlogBundle:Blog:showTagArticles }
     
+gore_blog_search:
+    pattern:  /search
+    defaults: { _controller: GoreBlogBundle:Blog:search }
+    requirements:
+        method: POST
     
 
 # ADMINISTRATION

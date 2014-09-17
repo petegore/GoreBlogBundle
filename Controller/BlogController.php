@@ -121,7 +121,11 @@ class BlogController extends Controller
         if ($keyword === null){
             return $this->showSearchPage();
         }
-        return $this->showSearchPage($keyword->getArticles());
+        
+        return $this->showSearchPage(
+            $keyword->getArticles(), 
+            $keyword->getName()
+        );
     }
     
     
@@ -133,7 +137,7 @@ class BlogController extends Controller
      * @param type $articles
      * @return type
      */
-    public function showSearchPage($articles = null){
+    public function showSearchPage($articles = null, $searchedText = ""){
         // mains articles are also displayed on the search page
         $mains  = $this->get('gore_blog.blog_manager')
                        ->getMainArticles();
@@ -142,7 +146,32 @@ class BlogController extends Controller
             'commonData'        => $this->getCommonData(),
             'mains'             => $mains,
             'olders'            => $articles,
-            'isSearch'          => true
+            'isSearch'          => true,
+            'searchedText'      => $searchedText
         ));
+    }
+    
+    
+    
+    /**
+     * searchAction
+     * Execute the search request and display results
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    public function searchAction(Request $request){
+        $results = null;
+        $search = "";
+        if ($request->getMethod() === "POST"){
+            if ($request->request->get('gore_blog_search')){
+                $search = $request->request->get('gore_blog_search');
+                
+                $results = $this->get('gore_blog.blog_manager')
+                                ->searchArticles($search);
+            }
+        }
+        return $this->showSearchPage(
+            $results,
+            $search
+        );
     }
 }
