@@ -44,6 +44,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('social_networks_urls')
                     ->addDefaultsIfNotSet()
                     ->children()
+                        ->scalarNode('envelope')->defaultNull()->end()
                         ->scalarNode('bitbucket')->defaultNull()->end()
                         ->scalarNode('facebook')->defaultNull()->end()
                         ->scalarNode('github')->defaultNull()->end()
