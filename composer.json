@@ -22,6 +22,6 @@
         "stof/doctrine-extensions-bundle": "1.1.*@dev"
     },
     "autoload": {
-        "psr-0": { "GoreBlogBundle": "" }
+        "psr-0": { "Gore\\BlogBundle": "" }
     }
 }

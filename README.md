@@ -1,6 +1,18 @@
 GoreBlogBundle
 ==============
 
+# Installation
+
+## Installing the bundle
+Add the following requirements to your composer.json :
+
+```
+"require": {
+    ...
+    "petegore/blog-bundle": "dev-master"
+},
+```
+
 A Symfony2 blog bundle (work in progres)
 
 This bundle is not complete : the blog misses a lot of functionalities, and many bug remain.
