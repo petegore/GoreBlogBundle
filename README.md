@@ -133,20 +133,20 @@ security:
 
 
 
-## Create your own admin user
-By running the commands (for example) : 
-``` bash
-$ php app/console fos:user:create admin admin@mywebsite.com admin
-$ php app/console fos:user:promote admin ROLE_ADMIN
-```
-
-
-
 ## Updating the database schema
 Update your database schema bu running update
 
 ``` bash
 $ php app/console doctrine:schema:update --force
+```
+
+
+
+## Create your own admin user
+By running the commands (for example) : 
+``` bash
+$ php app/console fos:user:create admin admin@mywebsite.com admin
+$ php app/console fos:user:promote admin ROLE_ADMIN
 ```
 
 
