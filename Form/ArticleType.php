@@ -34,7 +34,8 @@ class ArticleType extends AbstractType
             ->add('content', 'textarea', array(
                 'required' => false, 
                 'attr'   =>  array(
-                    'class'   => 'tinymce'
+                    'class'   => 'tinymce',
+                    'data-theme' => 'advanced'
                     )
                 )
             )

@@ -32,9 +32,19 @@
                 {# Social networks #}
                 {% if commonData.socialAccounts is not null %}
                     {% for name, uri in commonData.socialAccounts if uri is not null %}
-                        <li class="social-link" title="{% trans %}View me on{% endtrans%} {{ name }} !">
-                            <a href="{{ uri }}"><i class="fa fa-{{ name }}-square"></i></a>
-                        </li>
+                        {% if name == "email" %}
+                            <li class="social-link" title="{% trans %}Contact me by email{% endtrans%} !">
+                                <a href="mailto:{{ uri }}">
+                                    <i class="fa fa-envelope-square"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="social-link" title="{% trans %}View me on{% endtrans%} {{ name }} !">
+                                <a href="{{ uri }}">
+                                    <i class="fa fa-{{ name }}-square"></i>
+                                </a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
                 {# find the others icons on the font-awesome list #}

@@ -67,6 +67,11 @@
                 <source>Search</source>
                 <target>Recherche</target>
             </trans-unit>
+            
+            <trans-unit id="15">
+                <source>Contact me by email</source>
+                <target>Contactez-moi par mail</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
