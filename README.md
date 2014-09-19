@@ -56,6 +56,7 @@ $bundles = array(
     new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
     new FOS\UserBundle\FOSUserBundle(),
     new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+    new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 );
 ```
 
@@ -67,10 +68,21 @@ Add main blog route and FOSUserBundle routes :
 ``` yaml
 # app/config/routing.yml
 
+# ROUTING FOR HWIOAUTHBUNDLE : LET BEFORE THE OTHER ROUTES
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+
+
 # ROUTING FOR BLOGBUNDLE
 blog:
     resource: "@GoreBlogBundle/Resources/config/routing/routing.yml"
     prefix:   /
+
 
 # ROUTING FOR FOSUSERBUNDLE
 fos_user_security:

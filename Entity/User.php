@@ -19,10 +19,19 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    protected $facebookId;
+    
+    protected $googleId;
+    
+    protected $twitterId;
+    
 
     public function __construct()
     {
         parent::__construct();
     }
+    
+    
 }
 

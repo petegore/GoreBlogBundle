@@ -19,7 +19,8 @@
         "symfony/symfony": "2.5.*",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
         "stfalcon/tinymce-bundle": "dev-master",
-        "stof/doctrine-extensions-bundle": "1.1.*@dev"
+        "stof/doctrine-extensions-bundle": "1.1.*@dev",
+        "hwi/oauth-bundle": "0.4.*@dev"
     },
     "autoload": {
         "psr-0": { "Gore\\BlogBundle": "" }
